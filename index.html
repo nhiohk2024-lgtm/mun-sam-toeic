@@ -1,0 +1,2187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mun & Sam English Club - Luyện Thi TOEIC 500 - 650 - 700</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #fff5f8 0%, #f4f7ff 50%, #f3fbf7 100%);
+      color: #3f3d56;
+      scroll-behavior: smooth;
+    }
+    .pastel-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border: 2px solid #f3e8ff;
+      box-shadow: 0 10px 25px -5px rgba(167, 139, 250, 0.12);
+    }
+    .tab-btn {
+      transition: all 0.25s ease;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #f472b6 0%, #a855f7 100%);
+      color: white;
+      box-shadow: 0 6px 15px rgba(244, 114, 182, 0.35);
+      transform: translateY(-1px);
+    }
+    .clickable-word {
+      cursor: pointer;
+      border-bottom: 2px dashed #c084fc;
+      padding: 0 3px;
+      border-radius: 4px;
+      transition: all 0.18s;
+      display: inline-block;
+    }
+    .clickable-word:hover {
+      background-color: #f3e8ff;
+      color: #7e22ce;
+      transform: translateY(-1px);
+    }
+    @keyframes floatMascot {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    .mascot-float {
+      animation: floatMascot 3s ease-in-out infinite;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #fdf2f8; }
+    ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 999px; }
+  </style>
+</head>
+<body class="min-h-screen pb-28">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-2 border-pink-100 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Brand + Mini Mascot Icons -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('overview')">
+        <div class="flex -space-x-2">
+          <div id="nav-mun-avatar" class="w-10 h-10 rounded-full bg-amber-100 border-2 border-amber-400 overflow-hidden flex items-center justify-center shadow-sm"></div>
+          <div id="nav-sam-avatar" class="w-10 h-10 rounded-full bg-sky-100 border-2 border-sky-400 overflow-hidden flex items-center justify-center shadow-sm"></div>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg sm:text-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
+            Mun & Sam English Club
+          </h1>
+          <p class="text-xs text-slate-500 font-semibold">Lộ trình TOEIC 500 → 650 → 700 cho Pinkie</p>
+        </div>
+      </div>
+
+      <!-- Status & Controls -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200 flex items-center gap-1">
+          ⭐ <span id="xp-display">120</span> XP
+        </span>
+        <span class="px-3 py-1.5 rounded-full bg-pink-100 text-pink-700 text-xs font-bold border border-pink-200 flex items-center gap-1">
+          ⏱️ <span id="study-timer-display">00:00</span> / 45p
+        </span>
+        <button id="timer-toggle-btn" onclick="toggleStudyTimer()" class="px-3 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-sm transition">
+          ▶ Bắt đầu học
+        </button>
+        <button onclick="toggleSound()" id="sound-btn" title="Bật/Tắt âm thanh phản hồi" class="p-2 rounded-full bg-purple-100 text-purple-700 hover:bg-purple-200 text-xs font-bold">
+          🔊
+        </button>
+        <button onclick="openSyncModal()" class="px-3 py-1.5 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-700 text-xs font-bold border border-sky-200">
+          ☁️ Đồng bộ
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN TABS -->
+    <nav class="max-w-6xl mx-auto px-4 pb-3 flex gap-2 overflow-x-auto">
+      <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-4 py-2 rounded-2xl text-sm font-bold whitespace-nowrap bg-pink-50 text-pink-700">
+        🏠 Tổng quan & Lộ trình
+      </button>
+      <button onclick="switchTab('vocab')" id="tab-vocab" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold whitespace-nowrap bg-amber-50 text-amber-800">
+        📚 Từ vựng hình ảnh
+      </button>
+      <button onclick="switchTab('grammar')" id="tab-grammar" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold whitespace-nowrap bg-emerald-50 text-emerald-800">
+        🧩 Ngữ pháp từ 0 & Bẫy thi
+      </button>
+      <button onclick="switchTab('listening')" id="tab-listening" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold whitespace-nowrap bg-sky-50 text-sky-800">
+        🎧 Luyện nghe nhìn tranh
+      </button>
+      <button onclick="switchTab('mocktest')" id="tab-mocktest" class="tab-btn px-4 py-2 rounded-2xl text-sm font-bold whitespace-nowrap bg-purple-50 text-purple-800">
+        📝 Thi thử TOEIC (990đ)
+      </button>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT ANCHOR -->
+  <main id="main-content-anchor" class="max-w-6xl mx-auto px-4 pt-6 space-y-6">
+
+    <!-- ==================== TAB 1: OVERVIEW & DIAGNOSTIC ==================== -->
+    <section id="section-overview" class="space-y-6">
+      <!-- Mascot Welcome Banner -->
+      <div class="pastel-card rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-pink-50 via-amber-50 to-sky-50 border-2 border-pink-200">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Mascot Illustration Container -->
+          <div class="lg:col-span-5 flex flex-col items-center">
+            <div id="hero-mascot-container" class="w-full max-w-sm rounded-2xl bg-white/80 p-3 border-2 border-purple-200 shadow-inner flex items-center justify-center mascot-float">
+              <!-- Detailed Mun & Sam SVG rendered by JS -->
+            </div>
+            <div class="mt-2 flex items-center gap-2">
+              <label class="cursor-pointer px-3 py-1 rounded-full bg-white hover:bg-purple-50 text-purple-700 text-xs font-bold border border-purple-200 shadow-sm transition">
+                🖼️ Gắn ảnh gốc Mun & Sam từ máy
+                <input type="file" accept="image/*" class="hidden" onchange="uploadCustomMascot(event)" />
+              </label>
+              <button id="reset-mascot-btn" onclick="resetCustomMascot()" class="hidden px-2.5 py-1 rounded-full bg-rose-100 text-rose-600 text-xs font-bold">
+                Mặc định
+              </button>
+            </div>
+          </div>
+
+          <!-- Welcome & Role Cards -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold">✨ Chào Pinkie quay lại bàn học!</span>
+              <div class="flex items-center gap-2">
+                <button onclick="activateTiredMode()" class="px-3 py-1.5 rounded-xl bg-amber-200/80 hover:bg-amber-300 text-amber-900 text-xs font-bold transition">
+                  😴 Mệt sau giờ làm (Ôn 5p)
+                </button>
+                <button onclick="triggerLazyRoast()" class="px-3 py-1.5 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold transition">
+                  🙈 Nay hơi lười...
+                </button>
+              </div>
+            </div>
+
+            <h2 class="text-2xl sm:text-3xl font-bold text-slate-800">
+              Chinh phục TOEIC từ con số 0 cùng <span class="text-pink-500">Mun mập</span> & <span class="text-sky-600">Sam lùn</span>
+            </h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="p-3.5 rounded-2xl bg-amber-100/70 border border-amber-300">
+                <div class="flex items-center gap-2 font-bold text-amber-900 text-sm mb-1">
+                  <span>🎧 Mun mập (Giảng viên ân cần)</span>
+                </div>
+                <p class="text-xs text-amber-800 leading-relaxed">
+                  Phụ trách luyện nghe tốc độ 0.75x–1.0x, giải thích cặn kẽ ngữ pháp từ gốc và nhắc ôn nhẹ nhàng khi mệt.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-sky-100/70 border border-sky-300">
+                <div class="flex items-center gap-2 font-bold text-sky-900 text-sm mb-1">
+                  <span>✏️ Sam lùn (Giám thị cà khịa)</span>
+                </div>
+                <p class="text-xs text-sky-800 leading-relaxed">
+                  Canh giờ 45 phút/ngày, chủ trì mini-game & thi thử, bắt bài ngay nếu khoanh bừa hệ tâm linh!
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick Jump: Hôm nay học gì? -->
+            <div class="pt-1">
+              <p class="text-xs font-bold uppercase tracking-wider text-purple-600 mb-2">🚀 Hôm nay học gì? (Bấm để nhảy thẳng vào bài):</p>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button onclick="jumpToStudy('vocab')" class="p-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold shadow-sm transition text-left">
+                  1. Học <span id="daily-word-target-label">5</span> từ mới →
+                </button>
+                <button onclick="jumpToStudy('grammar')" class="p-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-sm transition text-left">
+                  2. Ngữ pháp & Bẫy →
+                </button>
+                <button onclick="jumpToStudy('listening')" class="p-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold shadow-sm transition text-left">
+                  3. Nghe nhìn tranh →
+                </button>
+                <button onclick="jumpToStudy('mocktest')" class="p-2.5 rounded-xl bg-purple-500 hover:bg-purple-600 text-white text-xs font-bold shadow-sm transition text-left">
+                  4. Thi thử Part 1-7 →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAGE DIAGNOSTIC & STRICT/COACHING ENGINE -->
+      <div class="pastel-card rounded-3xl p-5 sm:p-6 border-2 border-purple-200 bg-gradient-to-br from-white via-purple-50/40 to-pink-50/40">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold">📊 Đo lường Năng lực & Chẩn đoán Giai đoạn</span>
+            <h3 class="text-xl font-bold text-slate-800 mt-1">Đánh giá mức độ sẵn sàng cho kỳ thi mục tiêu</h3>
+          </div>
+          <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-2xl border border-purple-200">
+            <span class="text-xs font-bold text-slate-600">Mục tiêu đang xét:</span>
+            <select id="active-milestone-select" onchange="updateDiagnosticPanel()" class="text-xs font-bold text-purple-700 bg-purple-50 rounded-lg px-2 py-1 outline-none">
+              <option value="500">Mốc 1: 500 TOEIC (Nền tảng)</option>
+              <option value="650">Mốc 2: 650 TOEIC (Trung cấp)</option>
+              <option value="700">Mốc 3: 700 TOEIC (Thành thạo)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 4 Skill Readiness Bars -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+          <div class="p-3.5 rounded-2xl bg-pink-50 border border-pink-200">
+            <div class="flex justify-between text-xs font-bold text-pink-800 mb-1">
+              <span>📚 Vốn từ vựng</span>
+              <span id="diag-vocab-pct">0%</span>
+            </div>
+            <div class="w-full h-2.5 bg-pink-200/60 rounded-full overflow-hidden">
+              <div id="diag-vocab-bar" class="h-full bg-pink-500 rounded-full transition-all" style="width: 15%"></div>
+            </div>
+            <p id="diag-vocab-sub" class="text-[11px] text-pink-700 mt-1.5">Đã thuộc 0/12 từ cốt lõi</p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200">
+            <div class="flex justify-between text-xs font-bold text-emerald-800 mb-1">
+              <span>🧩 Nền tảng Ngữ pháp</span>
+              <span id="diag-gram-pct">0%</span>
+            </div>
+            <div class="w-full h-2.5 bg-emerald-200/60 rounded-full overflow-hidden">
+              <div id="diag-gram-bar" class="h-full bg-emerald-500 rounded-full transition-all" style="width: 10%"></div>
+            </div>
+            <p id="diag-gram-sub" class="text-[11px] text-emerald-700 mt-1.5">Chưa hoàn thành bài kiểm tra</p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-sky-50 border border-sky-200">
+            <div class="flex justify-between text-xs font-bold text-sky-800 mb-1">
+              <span>🎧 Phản xạ Nghe</span>
+              <span id="diag-list-pct">0%</span>
+            </div>
+            <div class="w-full h-2.5 bg-sky-200/60 rounded-full overflow-hidden">
+              <div id="diag-list-bar" class="h-full bg-sky-500 rounded-full transition-all" style="width: 10%"></div>
+            </div>
+            <p id="diag-list-sub" class="text-[11px] text-sky-700 mt-1.5">0 câu nghe đúng gần nhất</p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200">
+            <div class="flex justify-between text-xs font-bold text-amber-800 mb-1">
+              <span>📝 Điểm Thi thử gần nhất</span>
+              <span id="diag-mock-score">Chưa thi</span>
+            </div>
+            <div class="w-full h-2.5 bg-amber-200/60 rounded-full overflow-hidden">
+              <div id="diag-mock-bar" class="h-full bg-amber-500 rounded-full transition-all" style="width: 5%"></div>
+            </div>
+            <p id="diag-mock-sub" class="text-[11px] text-amber-700 mt-1.5">Làm đề thử để đo điểm thật</p>
+          </div>
+        </div>
+
+        <!-- Dual Mascot Feedback Box: Mun advises + Sam pushes strictly -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-amber-50/90 border-2 border-amber-200">
+            <div class="flex items-center gap-2 font-bold text-amber-900 text-sm mb-1.5">
+              <span>🎧 Lời khuyên chiến thuật từ Mun mập:</span>
+            </div>
+            <p id="mun-diagnostic-advice" class="text-xs sm:text-sm text-amber-900/90 leading-relaxed">
+              Pinkie đang ở giai đoạn khởi động từ con số 0. Đừng ôm đồm quá nhiều từ cùng lúc — mỗi ngày chỉ cần học chắc 5 từ kèm nhìn tranh và nắm vững 1 quy tắc ngữ pháp đuôi từ loại là đủ tạo đà vững vàng!
+            </p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-rose-50/90 border-2 border-rose-200">
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="font-bold text-rose-900 text-sm">🔥 Chế độ Đốc thúc Cứng rắn (Sam lùn):</span>
+              <span id="strictness-badge" class="px-2 py-0.5 rounded-full bg-rose-200 text-rose-800 text-[10px] font-bold">Mức: Nghiêm khắc</span>
+            </div>
+            <p id="sam-diagnostic-command" class="text-xs sm:text-sm text-rose-900/90 leading-relaxed">
+              Chưa có điểm thi thử nào mà đòi lên 500 hả? Hôm nay bắt buộc hoàn thành đủ 45 phút học, thuộc tối thiểu 5 từ mới và làm xong 1 bài thi thử Part 1 hoặc Part 5 trước khi đóng tab!
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 MILESTONES & AI TIME PREDICTOR -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- 3 Targets -->
+        <div class="lg:col-span-7 pastel-card rounded-3xl p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-bold text-slate-800">🎯 3 Cột Mốc Mục Tiêu TOEIC</h3>
+            <div class="flex items-center gap-2 text-xs">
+              <span class="font-bold text-slate-500">Chỉ tiêu từ/ngày:</span>
+              <select id="daily-words-select" onchange="changeDailyWordGoal(this.value)" class="bg-pink-100 text-pink-800 font-bold px-2.5 py-1 rounded-xl border border-pink-200 outline-none">
+                <option value="3">3 từ/ngày (Nhẹ nhàng)</option>
+                <option value="5" selected>5 từ/ngày (Khuyên dùng)</option>
+                <option value="8">8 từ/ngày (Tăng tốc)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-4 rounded-2xl bg-gradient-to-b from-pink-50 to-white border-2 border-pink-200">
+              <span class="px-2.5 py-0.5 rounded-full bg-pink-500 text-white text-xs font-bold">Mục tiêu 1</span>
+              <div class="text-2xl font-bold text-pink-600 mt-2">500+</div>
+              <p class="text-xs font-bold text-slate-700 mt-1">Lấy lại gốc & Sống sót</p>
+              <p class="text-[11px] text-slate-500 mt-1">Nắm 600 từ cốt lõi, nghe hiểu tranh Part 1, câu hỏi ngắn Part 2 & từ loại Part 5.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-b from-sky-50 to-white border-2 border-sky-200">
+              <span class="px-2.5 py-0.5 rounded-full bg-sky-500 text-white text-xs font-bold">Mục tiêu 2</span>
+              <div class="text-2xl font-bold text-sky-600 mt-2">650+</div>
+              <p class="text-xs font-bold text-slate-700 mt-1">Giao tiếp công sở ổn</p>
+              <p class="text-[11px] text-slate-500 mt-1">Bẫy thì & mệnh đề quan hệ, nghe hội thoại Part 3-4 bắt từ khóa chuẩn xác.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-b from-purple-50 to-white border-2 border-purple-200">
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-600 text-white text-xs font-bold">Mục tiêu 3</span>
+              <div class="text-2xl font-bold text-purple-600 mt-2">700+</div>
+              <p class="text-xs font-bold text-slate-700 mt-1">Bứt phá & Săn học bổng</p>
+              <p class="text-[11px] text-slate-500 mt-1">Thành thạo paraphrase đề mới, đọc hiểu Part 7 tốc độ cao & né bẫy đồng âm.</p>
+            </div>
+          </div>
+
+          <!-- AI Study Duration Predictor -->
+          <div class="p-4 rounded-2xl bg-purple-50/80 border border-purple-200 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs font-bold text-purple-900">🤖 AI Dự đoán ngày cán đích theo sức học thực tế:</span>
+              <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-white text-purple-700 border border-purple-200">
+                <span id="slider-mins-label">45</span> phút/ngày
+              </span>
+            </div>
+            <input type="range" id="study-mins-slider" min="30" max="120" step="15" value="45" oninput="recalcRoadmapDates(this.value)" class="w-full accent-purple-600 cursor-pointer" />
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2 rounded-xl bg-white border border-pink-100">
+                <div class="text-slate-500 text-[11px]">Đạt 500 điểm</div>
+                <div id="eta-500" class="font-bold text-pink-600 mt-0.5">~ 6 tuần</div>
+              </div>
+              <div class="p-2 rounded-xl bg-white border border-sky-100">
+                <div class="text-slate-500 text-[11px]">Đạt 650 điểm</div>
+                <div id="eta-650" class="font-bold text-sky-600 mt-0.5">~ 12 tuần</div>
+              </div>
+              <div class="p-2 rounded-xl bg-white border border-purple-100">
+                <div class="text-slate-500 text-[11px]">Đạt 700 điểm</div>
+                <div id="eta-700" class="font-bold text-purple-600 mt-0.5">~ 16 tuần</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Day / Week / Month Roadmap Switcher -->
+        <div class="lg:col-span-5 pastel-card rounded-3xl p-5 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <h3 class="text-lg font-bold text-slate-800">🗓️ Lộ trình chi tiết</h3>
+              <div class="flex bg-slate-100 p-1 rounded-xl text-xs font-bold">
+                <button onclick="switchRoadmapView('day')" id="rm-btn-day" class="px-2.5 py-1 rounded-lg bg-white text-purple-700 shadow-sm">Ngày</button>
+                <button onclick="switchRoadmapView('week')" id="rm-btn-week" class="px-2.5 py-1 rounded-lg text-slate-600">Tuần</button>
+                <button onclick="switchRoadmapView('month')" id="rm-btn-month" class="px-2.5 py-1 rounded-lg text-slate-600">Tháng</button>
+              </div>
+            </div>
+
+            <div id="roadmap-content-box" class="space-y-2.5 text-xs">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800">
+            <strong>💡 Nguyên tắc vàng:</strong> Học đủ tối thiểu <strong>45 phút/ngày</strong>. Nếu bận quá, bấm nút <em>"Mệt sau giờ làm (Ôn 5p)"</em> ở trên để giữ chuỗi không bị Sam lùn trừ điểm!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: VISUAL VOCABULARY & CLICK-TO-SAVE ==================== -->
+    <section id="section-vocab" class="hidden space-y-6">
+      <div class="pastel-card rounded-3xl p-5 sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-pink-100">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-bold">📚 Từ vựng hình ảnh trực quan + Mẹo siêu trí nhớ</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-slate-800 mt-1">Học đến đâu nhớ sâu đến đó (Chỉ tiêu: <span id="vocab-goal-badge">5</span> từ/ngày)</h2>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openSamMiniGame()" class="px-4 py-2 rounded-2xl bg-amber-400 hover:bg-amber-500 text-amber-950 text-xs font-bold shadow-sm transition">
+              🎮 Mini-game Sam lùn kiểm tra
+            </button>
+          </div>
+        </div>
+
+        <!-- Word Progress Pills -->
+        <div id="vocab-pills-bar" class="flex gap-2 overflow-x-auto py-3"></div>
+
+        <!-- Active Flashcard with Realistic Illustration -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-2 items-stretch">
+          <!-- Realistic Scene Illustration -->
+          <div class="lg:col-span-5 flex flex-col">
+            <div id="vocab-illustration-box" class="flex-1 min-h-[250px] rounded-3xl bg-gradient-to-b from-amber-50 to-orange-50 border-2 border-amber-200 p-4 flex flex-col items-center justify-center shadow-inner">
+              <!-- Realistic Illustrated Scene rendered by JS -->
+            </div>
+          </div>
+
+          <!-- Word Details + Clickable Example Sentence -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center gap-3">
+                <h3 id="vocab-word-title" class="text-3xl sm:text-4xl font-bold text-pink-600">meeting</h3>
+                <span id="vocab-word-pos" class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold">(n) Danh từ</span>
+                <span id="vocab-word-status" class="px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold">Chưa thuộc</span>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <span id="vocab-word-ipa" class="px-3 py-1 rounded-xl bg-pink-50 border border-pink-200 text-sm font-semibold text-slate-700">/ˈmiː.tɪŋ/</span>
+                <button onclick="speakCurrentWord('en-US')" class="px-3.5 py-1.5 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-bold transition">
+                  🔊 Giọng Mỹ
+                </button>
+                <button onclick="speakCurrentWord('en-GB')" class="px-3.5 py-1.5 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-xs font-bold transition">
+                  🔊 Giọng Anh
+                </button>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-pink-50/70 border border-pink-200">
+                <div class="text-[11px] font-bold uppercase text-pink-600">Nghĩa tiếng Việt chuẩn TOEIC:</div>
+                <div id="vocab-word-meaning" class="text-lg font-bold text-slate-800 mt-0.5">Cuộc họp, buổi gặp mặt công việc</div>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200">
+                <div class="text-xs font-bold text-amber-800">🎧 Mẹo siêu trí nhớ của Mun mập:</div>
+                <p id="vocab-word-mnemonic" class="text-xs sm:text-sm text-amber-950 mt-1 leading-relaxed"></p>
+              </div>
+
+              <!-- Clickable Sentence Box -->
+              <div class="p-4 rounded-2xl bg-purple-50/80 border-2 border-purple-200 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-purple-800">✨ Ví dụ thực tế (Bấm vào bất kỳ từ lạ nào để lưu từ điển):</span>
+                  <button onclick="speakExampleSentence()" class="text-xs font-bold text-purple-700 hover:underline">🔊 Nghe cả câu</button>
+                </div>
+                <p id="vocab-example-en" class="text-base sm:text-lg font-bold text-slate-800 leading-relaxed"></p>
+                <p id="vocab-example-vi" class="text-xs sm:text-sm text-slate-600 italic"></p>
+              </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+              <div class="flex gap-2">
+                <button onclick="prevVocab()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">← Từ trước</button>
+                <button onclick="nextVocab()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Từ tiếp theo →</button>
+              </div>
+              <div class="flex gap-2">
+                <button onclick="markVocabStatus('review')" class="px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-800 text-xs font-bold border border-amber-300">
+                  🤔 Còn hơi quên (Nhắc lại)
+                </button>
+                <button onclick="markVocabStatus('mastered')" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-sm">
+                  ✅ Đã thuộc lòng (+10 XP)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERSONAL SAVED DICTIONARY (CLICK-TO-SAVE NOTEBOOK) -->
+      <div class="pastel-card rounded-3xl p-5">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-lg font-bold text-purple-900">📒 Sổ tay từ mới của Pinkie (<span id="saved-words-count">0</span> từ đã nhặt)</h3>
+          <span class="text-xs text-slate-500">Bấm vào từ bất kỳ trong câu ví dụ ở trên để thêm vào đây</span>
+        </div>
+        <div id="saved-words-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: GRAMMAR FROM ZERO & EXAM TRAPS ==================== -->
+    <section id="section-grammar" class="hidden space-y-6">
+      <!-- Latest TOEIC Trend Banner -->
+      <div class="pastel-card rounded-3xl p-5 bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border-2 border-emerald-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <span class="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-bold">🔥 Cập nhật xu hướng đề thi TOEIC mới nhất</span>
+          <span class="text-xs font-bold text-emerald-800">Trọng tâm Part 5 & Part 6</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="p-3 rounded-2xl bg-white/90 border border-emerald-200">
+            <strong class="text-emerald-800 block mb-1">1. Giảm mẹo vẹt, tăng ngữ cảnh:</strong>
+            Đề mới giảm câu chỉ nhìn trước-sau chỗ trống là ra; tăng câu yêu cầu dịch nghĩa cụm từ cố định (collocations) và từ nối logic.
+          </div>
+          <div class="p-3 rounded-2xl bg-white/90 border border-emerald-200">
+            <strong class="text-emerald-800 block mb-1">2. Bẫy đuôi từ loại "lừa tình":</strong>
+            Cài nhiều từ có đuôi giống trạng từ nhưng là tính từ (<em>timely, costly, friendly</em>) hoặc đuôi tính từ nhưng là danh từ (<em>approval, proposal</em>).
+          </div>
+          <div class="p-3 rounded-2xl bg-white/90 border border-emerald-200">
+            <strong class="text-emerald-800 block mb-1">3. Rút gọn mệnh đề & Giới từ:</strong>
+            Xuất hiện dày đặc dạng phân từ chủ động (<em>V-ing</em>) / bị động (<em>V-ed/V3</em>) và giới từ đi kèm danh từ công sở.
+          </div>
+        </div>
+      </div>
+
+      <!-- Grammar Topics Selector -->
+      <div class="pastel-card rounded-3xl p-5 sm:p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-slate-800">🧩 Ngữ pháp từ con số 0 (Dễ hiểu - Áp dụng ngay)</h2>
+            <p class="text-xs text-slate-500">Chọn từng chuyên đề bên dưới để học công thức, né bẫy đề thi và làm bài tập chấm điểm</p>
+          </div>
+          <div id="grammar-topic-buttons" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Grammar Lesson Card -->
+        <div id="grammar-lesson-container" class="space-y-4"></div>
+
+        <!-- Grammar Practice Quiz -->
+        <div class="p-5 rounded-3xl bg-purple-50/70 border-2 border-purple-200 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-purple-900">✍️ Bài tập thực hành Part 5 (Sam lùn chấm điểm)</h3>
+            <span id="grammar-score-badge" class="px-3 py-1 rounded-full bg-white text-purple-700 text-xs font-bold border border-purple-200">Điểm: 0/0</span>
+          </div>
+          <div id="grammar-quiz-container" class="space-y-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: PICTURE LISTENING & REAL EXAM AUDIO ==================== -->
+    <section id="section-listening" class="hidden space-y-6">
+      <div class="pastel-card rounded-3xl p-5 sm:p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-sky-100">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold">🎧 Phòng Luyện Nghe Mun Mập (Chuẩn cấu trúc đề thật)</span>
+            <h2 class="text-xl font-bold text-slate-800 mt-1">Nghe nhìn tranh Part 1 & Phản xạ hỏi-đáp Part 2</h2>
+          </div>
+          <div class="flex items-center gap-2 bg-sky-50 px-3 py-1.5 rounded-2xl border border-sky-200">
+            <span class="text-xs font-bold text-sky-900">Tốc độ đọc:</span>
+            <button onclick="setListeningRate(0.75)" id="rate-075" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-sky-700 shadow-sm">0.75x (Chậm)</button>
+            <button onclick="setListeningRate(1.0)" id="rate-100" class="px-2.5 py-1 rounded-lg text-xs font-bold text-sky-700">1.0x (Thi thật)</button>
+          </div>
+        </div>
+
+        <!-- Sub-mode switcher -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="switchListeningMode('part1')" id="lmode-part1" class="px-4 py-2 rounded-2xl bg-sky-500 text-white text-xs font-bold shadow-sm">
+            🖼️ Part 1: Nghe nhìn tranh (Như thi thật)
+          </button>
+          <button onclick="switchListeningMode('part2')" id="lmode-part2" class="px-4 py-2 rounded-2xl bg-sky-100 text-sky-800 text-xs font-bold">
+            💬 Part 2: Phản xạ Hỏi - Đáp (Ẩn chữ)
+          </button>
+          <button onclick="switchListeningMode('dictation')" id="lmode-dictation" class="px-4 py-2 rounded-2xl bg-sky-100 text-sky-800 text-xs font-bold">
+            🧩 Nghe & Ráp câu công sở
+          </button>
+        </div>
+
+        <div id="listening-workspace" class="pt-2"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: MOCK TEST (BY PART & FULL EXAM 990) ==================== -->
+    <section id="section-mocktest" class="hidden space-y-6">
+      <div class="pastel-card rounded-3xl p-5 sm:p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-purple-100">
+          <div>
+            <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold">📝 Phòng Thi Thử Chuẩn TOEIC (Quy đổi thang 990)</span>
+            <h2 class="text-xl font-bold text-slate-800 mt-1">Luyện lẻ từng Part hoặc Thi thử Toàn đề có lời giải chi tiết</h2>
+          </div>
+          <div id="mock-timer-badge" class="hidden px-4 py-2 rounded-2xl bg-rose-100 text-rose-700 font-bold text-sm border border-rose-200">
+            ⏳ Thời gian còn lại: <span id="mock-countdown">15:00</span>
+          </div>
+        </div>
+
+        <!-- Test Mode Cards -->
+        <div id="mock-selector-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <button onclick="startMockTest('part1')" class="p-4 rounded-2xl bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 text-left transition">
+            <span class="text-xs font-bold text-pink-600">Luyện lẻ Listening</span>
+            <div class="text-base font-bold text-slate-800 mt-1">🖼️ Part 1: Mô tả tranh</div>
+            <p class="text-[11px] text-slate-600 mt-1">4 câu nghe nhìn tranh thực tế, bẫy thì hiện tại tiếp diễn.</p>
+          </button>
+
+          <button onclick="startMockTest('part2')" class="p-4 rounded-2xl bg-sky-50 hover:bg-sky-100 border-2 border-sky-200 text-left transition">
+            <span class="text-xs font-bold text-sky-600">Luyện lẻ Listening</span>
+            <div class="text-base font-bold text-slate-800 mt-1">💬 Part 2: Hỏi & Đáp</div>
+            <p class="text-[11px] text-slate-600 mt-1">5 câu phản xạ Wh-questions & bẫy từ đồng âm.</p>
+          </button>
+
+          <button onclick="startMockTest('part5')" class="p-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 border-2 border-emerald-200 text-left transition">
+            <span class="text-xs font-bold text-emerald-600">Luyện lẻ Reading</span>
+            <div class="text-base font-bold text-slate-800 mt-1">✍️ Part 5 & 6: Điền câu</div>
+            <p class="text-[11px] text-slate-600 mt-1">6 câu ngữ pháp từ loại, thì, giới từ & từ vựng xu hướng mới.</p>
+          </button>
+
+          <button onclick="startMockTest('full')" class="p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 text-white text-left shadow-md hover:opacity-95 transition">
+            <span class="text-xs font-bold text-purple-100">Đề tổng hợp chuẩn</span>
+            <div class="text-base font-bold mt-1">🏆 Thi Thử Toàn Đề (Mini Full)</div>
+            <p class="text-[11px] text-purple-50 mt-1">Đủ Part 1, 2, 5, 7 • Chấm điểm thang 990 & Giải chi tiết.</p>
+          </button>
+        </div>
+
+        <!-- Active Test Arena -->
+        <div id="mock-test-arena" class="hidden space-y-5"></div>
+
+        <!-- Test Result & Detailed Explanations -->
+        <div id="mock-result-arena" class="hidden space-y-5"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FLOATING MASCOT DIALOGUE BUBBLE (MUN & SAM) -->
+  <div id="mascot-floating-widget" class="fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100%-2rem)] sm:w-96">
+    <div class="rounded-3xl bg-white/95 backdrop-blur-md border-2 border-purple-300 shadow-xl p-3.5 flex items-start gap-3 transition-all">
+      <div id="bubble-mascot-avatar" class="w-14 h-14 rounded-2xl bg-amber-100 border-2 border-amber-300 flex-shrink-0 overflow-hidden flex items-center justify-center">
+        <!-- Active speaker avatar -->
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center justify-between gap-2">
+          <span id="bubble-speaker-name" class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">🎧 Mun mập</span>
+          <button onclick="cycleMascotTip()" class="text-[11px] text-purple-600 hover:underline font-bold">Đổi lời thoại ↻</button>
+        </div>
+        <p id="bubble-dialogue-text" class="text-xs sm:text-sm text-slate-700 font-semibold mt-1.5 leading-snug">
+          Chào Pinkie! Hôm nay mình học nhẹ nhàng 5 từ mới kèm nghe nhìn tranh nha. Bấm "Bắt đầu học" để tính giờ nhé!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNC MODAL (MULTI-DEVICE PROGRESS SYNC) -->
+  <div id="sync-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 border-2 border-sky-200 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-800">☁️ Đồng bộ tiến trình đa thiết bị</h3>
+        <button onclick="closeSyncModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600">✕</button>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Dùng mã đồng bộ bên dưới để chuyển toàn bộ điểm XP, từ vựng đã thuộc, sổ tay từ mới và lịch sử thi thử sang điện thoại, iPad hoặc máy tính khác.
+      </p>
+      <div class="space-y-2">
+        <label class="text-xs font-bold text-sky-800">1. Mã đồng bộ hiện tại của Pinkie:</label>
+        <textarea id="sync-export-box" rows="3" readonly class="w-full p-2.5 rounded-xl bg-sky-50 border border-sky-200 text-[11px] font-mono text-slate-700"></textarea>
+        <button onclick="copySyncCode()" class="w-full py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold">
+          📋 Sao chép mã đồng bộ
+        </button>
+      </div>
+      <div class="space-y-2 pt-2 border-t border-slate-100">
+        <label class="text-xs font-bold text-purple-800">2. Nhập mã từ thiết bị khác vào đây:</label>
+        <textarea id="sync-import-box" rows="2" placeholder="Dán mã đồng bộ vào đây..." class="w-full p-2.5 rounded-xl bg-purple-50 border border-purple-200 text-[11px] font-mono"></textarea>
+        <button onclick="importSyncCode()" class="w-full py-2 rounded-xl bg-purple-500 hover:bg-purple-600 text-white text-xs font-bold">
+          🔄 Khôi phục dữ liệu ngay
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAM LÙN MINI-GAME MODAL -->
+  <div id="minigame-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 border-2 border-amber-300 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between">
+        <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-800 text-xs font-bold">✏️ Sam lùn kiểm tra tốc độ</span>
+        <button onclick="closeSamMiniGame()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 font-bold text-slate-600">✕</button>
+      </div>
+      <div id="minigame-body" class="space-y-3"></div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== 1. HIGH-DETAIL MASCOT & REALISTIC SCENE ILLUSTRATIONS ====================
+    function getMascotSVG(type) {
+      // Detailed Mun Mập (chubby brown dog with purple headphones, orange paw bandana, reading purple TOEIC book)
+      const munSVG = `
+        <svg viewBox="0 0 220 200" class="w-full h-full">
+          <defs>
+            <linearGradient id="munFur" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8d6e63"/>
+              <stop offset="100%" stop-color="#5d4037"/>
+            </linearGradient>
+            <linearGradient id="headphoneGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#c084fc"/>
+              <stop offset="100%" stop-color="#7e22ce"/>
+            </linearGradient>
+          </defs>
+          <!-- Plump Body -->
+          <ellipse cx="95" cy="138" rx="68" ry="44" fill="url(#munFur)" stroke="#4e342e" stroke-width="3"/>
+          <!-- Curly Tail -->
+          <path d="M32 125 C12 105, 18 75, 42 82 C54 86, 48 106, 38 108" fill="#d7ccc8" stroke="#4e342e" stroke-width="3" stroke-linecap="round"/>
+          <!-- Headphone Band -->
+          <path d="M72 68 C72 25, 152 25, 152 68" fill="none" stroke="url(#headphoneGrad)" stroke-width="9" stroke-linecap="round"/>
+          <!-- Ears -->
+          <polygon points="76,65 86,28 104,56" fill="#5d4037" stroke="#4e342e" stroke-width="3" stroke-linejoin="round"/>
+          <polygon points="82,60 88,36 99,55" fill="#d7a89a"/>
+          <polygon points="122,55 140,26 150,64" fill="#5d4037" stroke="#4e342e" stroke-width="3" stroke-linejoin="round"/>
+          <polygon points="126,54 138,34 145,58" fill="#d7a89a"/>
+          <!-- Head -->
+          <ellipse cx="114" cy="84" rx="44" ry="38" fill="url(#munFur)" stroke="#4e342e" stroke-width="3"/>
+          <!-- Eyebrow dots -->
+          <ellipse cx="98" cy="65" rx="5" ry="3.5" fill="#ffe0b2"/>
+          <ellipse cx="132" cy="65" rx="5" ry="3.5" fill="#ffe0b2"/>
+          <!-- Muzzle -->
+          <ellipse cx="118" cy="95" rx="26" ry="19" fill="#ffe0b2"/>
+          <!-- Happy Wink Left Eye & Open Right Eye -->
+          <path d="M90 80 Q98 72 105 80" fill="none" stroke="#3e2723" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="133" cy="79" r="6" fill="#3e2723"/>
+          <circle cx="135" cy="77" r="2.2" fill="#ffffff"/>
+          <!-- Nose & Smiling Mouth + Tongue -->
+          <ellipse cx="120" cy="88" rx="7" ry="5" fill="#2d1b18"/>
+          <path d="M104 97 Q120 112 136 97" fill="#5d1a1a" stroke="#3e2723" stroke-width="2.5"/>
+          <path d="M114 102 Q120 116 127 102 Z" fill="#ff8a80"/>
+          <!-- Orange Bandana with Paw -->
+          <path d="M74 114 Q114 134 152 114 L144 136 Q114 148 82 136 Z" fill="#fb923c" stroke="#c2410c" stroke-width="2.5"/>
+          <circle cx="106" cy="128" r="3" fill="#fff7ed"/>
+          <circle cx="101" cy="123" r="1.6" fill="#fff7ed"/>
+          <circle cx="106" cy="121" r="1.6" fill="#fff7ed"/>
+          <circle cx="111" cy="123" r="1.6" fill="#fff7ed"/>
+          <!-- Purple Headphone Earcup with Equalizer Bars -->
+          <rect x="62" y="72" width="18" height="32" rx="9" fill="url(#headphoneGrad)" stroke="#4c1d95" stroke-width="2.5"/>
+          <rect x="66" y="84" width="2.5" height="9" rx="1" fill="#fb923c"/>
+          <rect x="70" y="80" width="2.5" height="13" rx="1" fill="#fb923c"/>
+          <rect x="74" y="86" width="2.5" height="7" rx="1" fill="#fb923c"/>
+          <!-- Purple TOEIC Book -->
+          <path d="M108 144 L156 135 L164 176 L114 185 Z" fill="#7c3aed" stroke="#4c1d95" stroke-width="2.5"/>
+          <text x="122" y="166" fill="#ffffff" font-size="12" font-weight="bold" transform="rotate(-10 122 166)">TOEIC</text>
+          <!-- Paws holding book -->
+          <ellipse cx="96" cy="172" rx="16" ry="10" fill="#ffe0b2" stroke="#4e342e" stroke-width="2.5"/>
+          <ellipse cx="164" cy="168" rx="13" ry="9" fill="#ffe0b2" stroke="#4e342e" stroke-width="2.5"/>
+          <!-- Coffee Mug on Books -->
+          <rect x="18" y="168" width="44" height="11" rx="4" fill="#f472b6" stroke="#831843" stroke-width="2"/>
+          <rect x="20" y="157" width="40" height="11" rx="4" fill="#60a5fa" stroke="#1e3a8a" stroke-width="2"/>
+          <rect x="28" y="135" width="22" height="22" rx="4" fill="#fed7aa" stroke="#9a3412" stroke-width="2"/>
+          <path d="M35 129 Q33 123 37 119 M42 129 Q40 123 44 119" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round"/>
+        </svg>`;
+
+      // Detailed Sam Lùn (tri-color corgi-husky puppy in blue hoodie, purple glasses on forehead, yellow pencil & TOEIC checklist card)
+      const samSVG = `
+        <svg viewBox="0 0 200 200" class="w-full h-full">
+          <!-- Fluffy Tail -->
+          <path d="M148 136 C172 126, 178 102, 160 98 C148 96, 146 114, 148 122" fill="#fde68a" stroke="#334155" stroke-width="3"/>
+          <!-- Body & Blue Hoodie -->
+          <path d="M62 118 Q100 106 138 118 L144 156 Q100 168 58 156 Z" fill="#38bdf8" stroke="#0369a1" stroke-width="3"/>
+          <!-- Hoodie Drawstrings -->
+          <line x1="88" y1="126" x2="86" y2="144" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="86" cy="145" r="2.5" fill="#ffffff"/>
+          <line x1="102" y1="126" x2="104" y2="144" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="104" cy="145" r="2.5" fill="#ffffff"/>
+          <!-- Ears -->
+          <polygon points="62,72 66,32 88,58" fill="#1e293b" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+          <polygon points="67,67 70,40 84,58" fill="#fed7aa"/>
+          <polygon points="112,58 136,34 138,74" fill="#1e293b" stroke="#0f172a" stroke-width="3" stroke-linejoin="round"/>
+          <polygon points="115,58 131,42 133,68" fill="#fed7aa"/>
+          <!-- Head (Tri-color pattern) -->
+          <ellipse cx="100" cy="84" rx="40" ry="34" fill="#1e293b" stroke="#0f172a" stroke-width="3"/>
+          <!-- Cream cheeks & center blaze -->
+          <path d="M96 62 L104 62 L108 82 Q132 84 132 102 Q100 118 68 102 Q68 84 92 82 Z" fill="#fef3c7"/>
+          <!-- Tan Eyebrow spots -->
+          <ellipse cx="86" cy="73" rx="5" ry="3.5" fill="#f59e0b"/>
+          <ellipse cx="114" cy="73" rx="5" ry="3.5" fill="#f59e0b"/>
+          <!-- Purple Glasses resting on forehead -->
+          <circle cx="85" cy="57" r="10" fill="rgba(255,255,255,0.45)" stroke="#7c3aed" stroke-width="3"/>
+          <circle cx="113" cy="57" r="10" fill="rgba(255,255,255,0.45)" stroke="#7c3aed" stroke-width="3"/>
+          <line x1="95" y1="57" x2="103" y2="57" stroke="#7c3aed" stroke-width="3"/>
+          <!-- Big Sparkly Eyes -->
+          <circle cx="85" cy="86" r="6.5" fill="#1e293b"/>
+          <circle cx="87" cy="84" r="2.3" fill="#ffffff"/>
+          <circle cx="115" cy="86" r="6.5" fill="#1e293b"/>
+          <circle cx="117" cy="84" r="2.3" fill="#ffffff"/>
+          <!-- Cute Nose & Happy Mouth -->
+          <ellipse cx="100" cy="94" rx="5.5" ry="4" fill="#0f172a"/>
+          <path d="M90 101 Q100 113 110 101" fill="#7f1d1d" stroke="#0f172a" stroke-width="2"/>
+          <path d="M96 105 Q100 115 105 105 Z" fill="#fb7185"/>
+          <!-- Yellow Pencil in Left Paw -->
+          <g transform="rotate(-22 48 115)">
+            <rect x="42" y="92" width="11" height="36" rx="2" fill="#facc15" stroke="#854d0e" stroke-width="2"/>
+            <polygon points="42,92 53,92 47.5,81" fill="#fde68a" stroke="#854d0e" stroke-width="2"/>
+            <polygon points="45.5,85 49.5,85 47.5,81" fill="#1e293b"/>
+          </g>
+          <circle cx="54" cy="124" r="9" fill="#fef3c7" stroke="#334155" stroke-width="2.5"/>
+          <!-- TOEIC Checklist Card in Right Paw -->
+          <rect x="116" y="106" width="36" height="42" rx="7" fill="#ffffff" stroke="#7c3aed" stroke-width="2.5" transform="rotate(8 116 106)"/>
+          <text x="120" y="123" fill="#6d28d9" font-size="9.5" font-weight="bold" transform="rotate(8 120 123)">TOEIC</text>
+          <rect x="126" y="128" width="12" height="12" rx="3" fill="#c4b5fd" transform="rotate(8 126 128)"/>
+          <path d="M128 134 L131 137 L136 131" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+          <!-- Paws -->
+          <ellipse cx="78" cy="166" rx="13" ry="8" fill="#fef3c7" stroke="#334155" stroke-width="2.5"/>
+          <ellipse cx="118" cy="166" rx="13" ry="8" fill="#fef3c7" stroke="#334155" stroke-width="2.5"/>
+        </svg>`;
+
+      if (type === 'mun') return munSVG;
+      if (type === 'sam') return samSVG;
+
+      // Combined Duo Hero Scene
+      return `
+        <svg viewBox="0 0 420 210" class="w-full h-auto">
+          <!-- Soft Pastel Backdrop -->
+          <ellipse cx="210" cy="182" rx="185" ry="18" fill="#f3e8ff"/>
+          <!-- Sparkles -->
+          <path d="M40 42 L44 52 L54 56 L44 60 L40 70 L36 60 L26 56 L36 52 Z" fill="#fde047" stroke="#eab308" stroke-width="1.5"/>
+          <path d="M385 68 L389 78 L399 82 L389 86 L385 96 L381 86 L371 82 L381 78 Z" fill="#fde047" stroke="#eab308" stroke-width="1.5"/>
+          <!-- Mun Mập on Left -->
+          <g transform="translate(8, 5) scale(1.02)">
+            ${munSVG.replace('<svg viewBox="0 0 220 200" class="w-full h-full">', '').replace('</svg>', '')}
+          </g>
+          <!-- Sam Lùn on Right -->
+          <g transform="translate(222, 8) scale(0.98)">
+            ${samSVG.replace('<svg viewBox="0 0 200 200" class="w-full h-full">', '').replace('</svg>', '')}
+          </g>
+          <!-- Mini Desk Calendar on Bottom Right -->
+          <g transform="translate(348, 142) rotate(6)">
+            <rect x="0" y="6" width="48" height="44" rx="7" fill="#f3e8ff" stroke="#6d28d9" stroke-width="2.5"/>
+            <rect x="8" y="15" width="10" height="10" rx="2.5" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+            <path d="M10 20 L12 22 L16 17" fill="none" stroke="#15803d" stroke-width="1.8"/>
+            <line x1="23" y1="20" x2="39" y2="20" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="8" y="30" width="10" height="10" rx="2.5" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+            <path d="M10 35 L12 37 L16 32" fill="none" stroke="#15803d" stroke-width="1.8"/>
+            <line x1="23" y1="35" x2="39" y2="35" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
+          </g>
+        </svg>`;
+    }
+
+    // Realistic Editorial Office & Daily Scene Illustrations (inspired by user's storybook office art)
+    function getRealisticSceneSVG(sceneKey, caption) {
+      const scenes = {
+        meeting: `
+          <svg viewBox="0 0 320 220" class="w-full max-w-[280px] h-auto rounded-2xl bg-sky-50 border border-amber-200">
+            <!-- Office Glass Window -->
+            <rect x="20" y="15" width="280" height="125" rx="16" fill="#dbeafe"/>
+            <line x1="110" y1="15" x2="110" y2="140" stroke="#ffffff" stroke-width="4"/>
+            <line x1="210" y1="15" x2="210" y2="140" stroke="#ffffff" stroke-width="4"/>
+            <line x1="20" y1="78" x2="300" y2="78" stroke="#ffffff" stroke-width="4"/>
+            <!-- Standing Team Leader -->
+            <circle cx="155" cy="64" r="16" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M139 62 Q155 40 171 62 L173 84 L137 84 Z" fill="#fbbf24" stroke="#475569" stroke-width="2"/>
+            <circle cx="151" cy="63" r="1.8" fill="#1e293b"/><circle cx="160" cy="63" r="1.8" fill="#1e293b"/>
+            <path d="M152 69 Q156 73 160 69" fill="none" stroke="#1e293b" stroke-width="1.8"/>
+            <path d="M133 86 L177 86 L183 142 L127 142 Z" fill="#64748b" stroke="#334155" stroke-width="2"/>
+            <polygon points="148,86 162,86 155,112" fill="#ffffff"/>
+            <rect x="151" y="112" width="9" height="13" rx="2" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+            <!-- Left Colleague -->
+            <circle cx="76" cy="86" r="15" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M62 82 Q76 66 90 82" fill="#92400e"/>
+            <path d="M54 104 L98 104 L104 148 L48 148 Z" fill="#60a5fa" stroke="#334155" stroke-width="2"/>
+            <!-- Right Colleague -->
+            <circle cx="238" cy="86" r="15" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M223 84 Q238 64 253 84 L255 104 L221 104 Z" fill="#334155"/>
+            <path d="M216 104 L260 104 L266 148 L210 148 Z" fill="#f472b6" stroke="#334155" stroke-width="2"/>
+            <!-- Conference Table -->
+            <ellipse cx="160" cy="176" rx="145" ry="42" fill="#d97706" stroke="#78350f" stroke-width="2.5"/>
+            <ellipse cx="160" cy="172" rx="142" ry="38" fill="#fbbf24"/>
+            <!-- Laptops & Coffee Cups -->
+            <polygon points="92,155 128,155 134,134 98,134" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+            <polygon points="190,155 226,155 220,134 184,134" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+            <rect x="148" y="144" width="14" height="16" rx="3" fill="#ffffff" stroke="#475569" stroke-width="1.8"/>
+            <rect x="242" y="156" width="32" height="20" rx="2" fill="#ffffff" stroke="#64748b" stroke-width="1.5" transform="rotate(-8 242 156)"/>
+          </svg>`,
+        contract: `
+          <svg viewBox="0 0 320 220" class="w-full max-w-[280px] h-auto rounded-2xl bg-amber-50 border border-amber-200">
+            <rect x="25" y="20" width="270" height="120" rx="14" fill="#fef3c7"/>
+            <!-- Two Business Partners -->
+            <circle cx="95" cy="76" r="16" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M80 72 Q95 54 110 72" fill="#1e293b"/>
+            <path d="M70 96 L120 96 L126 152 L64 152 Z" fill="#3b82f6" stroke="#1e3a8a" stroke-width="2"/>
+            <circle cx="225" cy="76" r="16" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M209 74 Q225 54 241 74 L243 96 L207 96 Z" fill="#78350f"/>
+            <path d="M200 96 L250 96 L256 152 L194 152 Z" fill="#10b981" stroke="#065f46" stroke-width="2"/>
+            <!-- Desk -->
+            <rect x="20" y="146" width="280" height="58" rx="10" fill="#f59e0b" stroke="#92400e" stroke-width="2.5"/>
+            <!-- Contract Document & Pen -->
+            <rect x="122" y="132" width="76" height="56" rx="4" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+            <line x1="132" y1="144" x2="186" y2="144" stroke="#94a3b8" stroke-width="2.5"/>
+            <line x1="132" y1="154" x2="186" y2="154" stroke="#94a3b8" stroke-width="2.5"/>
+            <line x1="132" y1="164" x2="165" y2="164" stroke="#94a3b8" stroke-width="2.5"/>
+            <path d="M164 176 Q172 170 182 177" fill="none" stroke="#ec4899" stroke-width="2.5"/>
+            <line x1="184" y1="174" x2="206" y2="152" stroke="#eab308" stroke-width="4" stroke-linecap="round"/>
+          </svg>`,
+        deadline: `
+          <svg viewBox="0 0 320 220" class="w-full max-w-[280px] h-auto rounded-2xl bg-rose-50 border border-rose-200">
+            <!-- Wall Clock showing 4:55 -->
+            <circle cx="248" cy="56" r="28" fill="#ffffff" stroke="#e11d48" stroke-width="3.5"/>
+            <line x1="248" y1="56" x2="248" y2="38" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="248" y1="56" x2="264" y2="56" stroke="#e11d48" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Focused Worker at Laptop -->
+            <circle cx="122" cy="78" r="17" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M105 76 Q122 54 139 76" fill="#475569"/>
+            <path d="M94 98 L150 98 L158 156 L86 156 Z" fill="#a855f7" stroke="#581c87" stroke-width="2"/>
+            <rect x="25" y="152" width="270" height="52" rx="10" fill="#fde68a" stroke="#b45309" stroke-width="2"/>
+            <!-- Laptop & Stack of Files -->
+            <polygon points="116,152 176,152 186,120 126,120" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+            <rect x="44" y="128" width="46" height="24" rx="3" fill="#fda4af" stroke="#9f1239" stroke-width="1.8"/>
+            <rect x="212" y="114" width="54" height="38" rx="6" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
+            <text x="220" y="138" fill="#e11d48" font-size="11" font-weight="bold">DUE 5PM</text>
+          </svg>`,
+        warehouse: `
+          <svg viewBox="0 0 320 220" class="w-full max-w-[280px] h-auto rounded-2xl bg-emerald-50 border border-emerald-200">
+            <!-- Warehouse Shelves -->
+            <rect x="24" y="26" width="115" height="165" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+            <line x1="24" y1="80" x2="139" y2="80" stroke="#475569" stroke-width="3"/>
+            <line x1="24" y1="135" x2="139" y2="135" stroke="#475569" stroke-width="3"/>
+            <rect x="34" y="46" width="38" height="34" fill="#f59e0b" stroke="#78350f" stroke-width="1.8"/>
+            <rect x="82" y="50" width="44" height="30" fill="#fbbf24" stroke="#78350f" stroke-width="1.8"/>
+            <rect x="36" y="100" width="46" height="35" fill="#fb923c" stroke="#78350f" stroke-width="1.8"/>
+            <!-- Staff Checking Clipboard -->
+            <circle cx="205" cy="76" r="16" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M188 70 Q205 52 222 70 Z" fill="#facc15" stroke="#854d0e" stroke-width="2"/>
+            <path d="M180 96 L230 96 L236 186 L174 186 Z" fill="#34d399" stroke="#065f46" stroke-width="2"/>
+            <rect x="226" y="114" width="36" height="46" rx="4" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+            <path d="M234 128 L239 133 L248 123" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+            <path d="M234 142 L239 147 L248 137" fill="none" stroke="#16a34a" stroke-width="2.5"/>
+          </svg>`,
+        presentation: `
+          <svg viewBox="0 0 320 220" class="w-full max-w-[280px] h-auto rounded-2xl bg-indigo-50 border border-indigo-200">
+            <!-- Presentation Board with Chart -->
+            <rect x="145" y="24" width="145" height="96" rx="8" fill="#ffffff" stroke="#4f46e5" stroke-width="2.5"/>
+            <polyline points="162,98 192,76 222,84 265,44" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="265" cy="44" r="5" fill="#10b981"/>
+            <!-- Presenter Pointing -->
+            <circle cx="92" cy="72" r="16" fill="#fed7aa" stroke="#475569" stroke-width="2"/>
+            <path d="M76 70 Q92 50 108 70" fill="#1e293b"/>
+            <path d="M68 92 L116 92 L122 175 L62 175 Z" fill="#6366f1" stroke="#312e81" stroke-width="2"/>
+            <line x1="116" y1="104" x2="178" y2="74" stroke="#fed7aa" stroke-width="6" stroke-linecap="round"/>
+            <!-- Audience Heads -->
+            <circle cx="176" cy="176" r="16" fill="#f472b6" stroke="#831843" stroke-width="2"/>
+            <circle cx="226" cy="176" r="16" fill="#38bdf8" stroke="#0369a1" stroke-width="2"/>
+            <circle cx="274" cy="176" r="16" fill="#fbbf24" stroke="#92400e" stroke-width="2"/>
+          </svg>`
+      };
+
+      const svg = scenes[sceneKey] || scenes.meeting;
+      return `
+        ${svg}
+        <p class="mt-3 text-xs font-bold text-amber-900 text-center bg-white/80 px-3 py-1.5 rounded-full border border-amber-200">
+          🖼️ ${caption}
+        </p>
+      `;
+    }
+
+    // ==================== 2. WEB AUDIO API FEEDBACK SOUNDS ====================
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function playFeedbackSound(isCorrect) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (isCorrect) {
+          // Bright pleasant two-note chime
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(587.33, now);       // D5
+          osc.frequency.setValueAtTime(880, now + 0.11);    // A5
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.36);
+        } else {
+          // Gentle low buzzer
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(155, now + 0.25);
+          gain.gain.setValueAtTime(0.18, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.32);
+        }
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      document.getElementById('sound-btn').textContent = soundEnabled ? '🔊' : '🔇';
+      if (soundEnabled) playFeedbackSound(true);
+    }
+
+    // ==================== 3. CORE DATA & STATE ====================
+    const VOCAB_BANK = [
+      {
+        id: 'v1', word: 'meeting', pos: '(n) Danh từ', ipa: '/ˈmiː.tɪŋ/',
+        meaning: 'Cuộc họp, buổi gặp mặt công việc',
+        scene: 'meeting', caption: 'Nhóm nhân viên đang họp thảo luận quanh bàn laptop',
+        mnemonic: 'Đọc gần giống "mít-tinh" trong tiếng Việt! Tưởng tượng cả phòng đang ngồi quanh bàn mít-tinh bàn kế hoạch.',
+        exampleEn: 'The marketing team will attend an urgent meeting in the conference room.',
+        exampleVi: 'Đội ngũ tiếp thị sẽ tham dự một cuộc họp khẩn cấp tại phòng hội nghị.',
+        dict: {
+          'marketing': 'tiếp thị, quảng bá', 'team': 'đội, nhóm', 'attend': 'tham dự, có mặt',
+          'urgent': 'khẩn cấp, gấp', 'conference': 'hội nghị', 'room': 'phòng'
+        }
+      },
+      {
+        id: 'v2', word: 'contract', pos: '(n) Danh từ', ipa: '/ˈkɒn.trækt/',
+        meaning: 'Hợp đồng, văn bản ký kết',
+        scene: 'contract', caption: 'Hai đối tác đang kiểm tra và ký kết hợp đồng trên bàn',
+        mnemonic: 'Con (cùng) + tract (kéo lại) → Kéo hai bên lại cùng ký vào một tờ giấy thỏa thuận!',
+        exampleEn: 'Both companies signed a two-year contract yesterday afternoon.',
+        exampleVi: 'Cả hai công ty đã ký một bản hợp đồng hai năm vào chiều hôm qua.',
+        dict: {
+          'both': 'cả hai', 'companies': 'các công ty', 'signed': 'đã ký tên',
+          'two-year': 'kéo dài 2 năm', 'yesterday': 'hôm qua', 'afternoon': 'buổi chiều'
+        }
+      },
+      {
+        id: 'v3', word: 'deadline', pos: '(n) Danh từ', ipa: '/ˈded.laɪn/',
+        meaning: 'Hạn chót, thời hạn hoàn thành',
+        scene: 'deadline', caption: 'Nhân viên đang chạy đua hoàn thành báo cáo trước giờ chót',
+        mnemonic: 'Dead (chết) + line (vạch kẻ) → Bước qua vạch này là "chết" với sếp, nên phải nộp bài trước hạn chót!',
+        exampleEn: 'Please submit your expense report before the Friday deadline.',
+        exampleVi: 'Vui lòng nộp báo cáo chi phí của bạn trước hạn chót thứ Sáu.',
+        dict: {
+          'please': 'vui lòng', 'submit': 'nộp, đệ trình', 'expense': 'chi phí',
+          'report': 'báo cáo', 'before': 'trước khi', 'friday': 'thứ Sáu'
+        }
+      },
+      {
+        id: 'v4', word: 'inventory', pos: '(n) Danh từ', ipa: '/ˈɪn.vən.tər.i/',
+        meaning: 'Hàng tồn kho, bảng kiểm kê hàng hóa',
+        scene: 'warehouse', caption: 'Nhân viên kho đang cầm bảng kiểm tra số lượng thùng hàng',
+        mnemonic: 'In (bên trong) + ventory (kho chứa) → Đếm xem bên trong kho còn bao nhiêu thùng hàng.',
+        exampleEn: 'Our staff checks the warehouse inventory at the end of every month.',
+        exampleVi: 'Nhân viên của chúng tôi kiểm kê hàng tồn kho vào cuối mỗi tháng.',
+        dict: {
+          'staff': 'nhân viên', 'checks': 'kiểm tra', 'warehouse': 'nhà kho',
+          'end': 'cuối', 'every': 'mỗi', 'month': 'tháng'
+        }
+      },
+      {
+        id: 'v5', word: 'presentation', pos: '(n) Danh từ', ipa: '/ˌprez.ənˈteɪ.ʃən/',
+        meaning: 'Bài thuyết trình, buổi trình bày dự án',
+        scene: 'presentation', caption: 'Quản lý đang chỉ biểu đồ tăng trưởng trong buổi thuyết trình',
+        mnemonic: 'Present (trình bày) + đuôi -ation (danh từ) → Buổi đứng trước mọi người trình bày biểu đồ.',
+        exampleEn: 'Ms. Linh gave an impressive presentation about annual sales growth.',
+        exampleVi: 'Cô Linh đã có một bài thuyết trình ấn tượng về tăng trưởng doanh số hàng năm.',
+        dict: {
+          'gave': 'đã đưa ra / thực hiện', 'impressive': 'ấn tượng', 'about': 'về',
+          'annual': 'hàng năm', 'sales': 'doanh số', 'growth': 'sự tăng trưởng'
+        }
+      },
+      {
+        id: 'v6', word: 'colleague', pos: '(n) Danh từ', ipa: '/ˈkɒl.iːɡ/',
+        meaning: 'Đồng nghiệp làm cùng cơ quan',
+        scene: 'meeting', caption: 'Các đồng nghiệp trao đổi công việc thân thiện tại văn phòng',
+        mnemonic: 'Đọc gần giống "co-líc" → Cùng một "league" (liên đoàn/công ty) với nhau chính là đồng nghiệp!',
+        exampleEn: 'I always discuss new project ideas with my colleagues first.',
+        exampleVi: 'Tôi luôn thảo luận các ý tưởng dự án mới với đồng nghiệp trước tiên.',
+        dict: {
+          'always': 'luôn luôn', 'discuss': 'thảo luận', 'new': 'mới',
+          'project': 'dự án', 'ideas': 'ý tưởng', 'first': 'đầu tiên'
+        }
+      }
+    ];
+
+    const GRAMMAR_TOPICS = [
+      {
+        id: 'g1',
+        title: '1. Mẹo nhìn đuôi Từ loại (Ăn điểm 100% Part 5)',
+        formula: 'Mạo từ (a/an/the) hoặc Tính từ sở hữu (my/his/their) + [Tính từ] + Danh từ',
+        explanation: 'Không cần dịch hết cả câu! Chỉ cần nhìn ngay trước và sau chỗ trống: nếu đứng sau <strong>the / a / an / my / their</strong> và trước danh từ, chắc chắn điền <strong>Tính từ</strong>.',
+        trapNote: '🚨 BẪY ĐỀ THI HAY GẶP: Đừng thấy đuôi <strong>-ly</strong> là khoanh Trạng từ! Các từ <em>timely (kịp thời), friendly (thân thiện), costly (đắt đỏ), likely (có khả năng)</em> là <strong>TÍNH TỪ</strong>. Ngược lại, <em>approval (sự phê duyệt), proposal (đề xuất), renewal (gia hạn)</em> có đuôi <strong>-al</strong> nhưng là <strong>DANH TỪ</strong>!',
+        questions: [
+          {
+            q: 'The manager praised the team for their _______ response to the client complaint.',
+            options: ['(A) prompt', '(B) promptly', '(C) promptness', '(D) prompted'],
+            ans: 0,
+            explain: 'Sau tính từ sở hữu "their" và trước danh từ "response" cần một Tính từ → chọn (A) prompt (nhanh chóng, kịp thời).'
+          },
+          {
+            q: 'All budget _______ must be submitted to the finance director before Friday.',
+            options: ['(A) propose', '(B) proposals', '(C) proposed', '(D) proposing'],
+            ans: 1,
+            explain: 'Bẫy đuôi -al! "proposals" là danh từ số nhiều (các bản đề xuất ngân sách), đóng vai trò chủ ngữ đứng trước "must be submitted".'
+          }
+        ]
+      },
+      {
+        id: 'g2',
+        title: '2. 3 Thì cốt lõi & Bẫy mệnh đề thời gian',
+        formula: 'Hiện tại đơn (thói quen/lịch trình) • Quá khứ đơn (yesterday/ago/last) • Tương lai đơn (will + V0)',
+        explanation: 'Nhìn dấu hiệu thời gian cuối câu: thấy <strong>yesterday / last week / in 2024</strong> → chọn Quá khứ đơn; thấy <strong>every day / usually</strong> → Hiện tại đơn; thấy <strong>next month / soon</strong> → Tương lai đơn.',
+        trapNote: '🚨 BẪY KINH ĐIỂN TRONG ĐỀ TOEIC: Trong mệnh đề bắt đầu bằng <strong>When / As soon as / Before / After / Until</strong>, TUYỆT ĐỐI KHÔNG dùng <em>will</em> dù dịch nghĩa là tương lai! Phải dùng <strong>Hiện tại đơn</strong> (Ví dụ: <em>When he arrives</em>, không dùng <em>When he will arrive</em>).',
+        questions: [
+          {
+            q: 'We will begin the orientation session as soon as the guest speaker _______.',
+            options: ['(A) will arrive', '(B) arrives', '(C) arrived', '(D) arriving'],
+            ans: 1,
+            explain: 'Bẫy mệnh đề "as soon as": Không dùng "will arrive", chia Hiện tại đơn số ít theo chủ ngữ "the guest speaker" → chọn (B) arrives.'
+          },
+          {
+            q: 'The shipping department _______ three hundred boxes to Tokyo yesterday.',
+            options: ['(A) sends', '(B) will send', '(C) sent', '(D) sending'],
+            ans: 2,
+            explain: 'Có dấu hiệu "yesterday" (hôm qua) → chia Quá khứ đơn → chọn (C) sent.'
+          }
+        ]
+      },
+      {
+        id: 'g3',
+        title: '3. Giới từ In / On / At & Bẫy thời gian',
+        formula: 'AT + giờ cụ thể • ON + thứ / ngày tháng • IN + tháng / năm / buổi trong ngày',
+        explanation: 'Nhớ tháp ngược từ nhỏ đến lớn: <strong>At</strong> 9:00 AM (giờ) → <strong>On</strong> Monday / May 5th (ngày) → <strong>In</strong> November / 2026 (tháng, năm).',
+        trapNote: '🚨 TRƯỜNG HỢP ĐẶC BIỆT HAY BỊ LỪA: Nếu có cả ngày lẫn buổi, tính theo NGÀY nên dùng <strong>ON</strong> (Ví dụ: <em>on Monday morning</em>, không dùng <em>in</em>). Ngoài ra, trước <em>next / last / this / every</em> thì KHÔNG dùng giới từ nào cả!',
+        questions: [
+          {
+            q: 'The annual shareholders meeting will take place _______ Wednesday morning.',
+            options: ['(A) in', '(B) at', '(C) on', '(D) to'],
+            ans: 2,
+            explain: 'Bẫy ngày + buổi: Thấy "morning" rất dễ chọn nhầm "in", nhưng vì đi kèm thứ "Wednesday" nên phải dùng (C) on!'
+          },
+          {
+            q: 'Please arrive at the main lobby _______ 8:30 A.M. for visitor registration.',
+            options: ['(A) at', '(B) on', '(C) in', '(D) by of'],
+            ans: 0,
+            explain: 'Trước giờ cụ thể (8:30 A.M.) luôn dùng giới từ (A) at.'
+          }
+        ]
+      }
+    ];
+
+    const LISTENING_PART1_ITEMS = [
+      {
+        id: 'p1_1',
+        scene: 'meeting',
+        caption: 'Bức tranh số 1 - Phòng họp văn phòng',
+        options: [
+          '(A) The employees are sitting around a conference table.',
+          '(B) A woman is cleaning the glass window.',
+          '(C) The laptops are stacked inside a cardboard box.',
+          '(D) Everyone has already left the meeting room.'
+        ],
+        ans: 0,
+        explain: 'Tranh mô tả các nhân viên đang ngồi quanh bàn họp (sitting around a conference table) với laptop và tài liệu.'
+      },
+      {
+        id: 'p1_2',
+        scene: 'warehouse',
+        caption: 'Bức tranh số 2 - Khu vực kho hàng',
+        options: [
+          '(A) A worker is driving a delivery truck.',
+          '(B) Boxes are arranged on metal shelves in the warehouse.',
+          '(C) Customers are paying at a supermarket counter.',
+          '(D) The shelves are completely empty.'
+        ],
+        ans: 1,
+        explain: 'Trong tranh có các thùng hàng xếp trên kệ kim loại trong nhà kho (arranged on metal shelves) và nhân viên đang kiểm kê.'
+      },
+      {
+        id: 'p1_3',
+        scene: 'presentation',
+        caption: 'Bức tranh số 3 - Buổi thuyết trình',
+        options: [
+          '(A) A presenter is pointing at a chart on the board.',
+          '(B) People are eating lunch in a cafeteria.',
+          '(C) The whiteboard is being carried out of the room.',
+          '(D) A man is repairing a copy machine.'
+        ],
+        ans: 0,
+        explain: 'Người thuyết trình đang chỉ tay vào biểu đồ trên bảng (pointing at a chart on the board).'
+      }
+    ];
+
+    const LISTENING_PART2_ITEMS = [
+      {
+        id: 'p2_1',
+        questionAudio: 'When will the new marketing director arrive?',
+        options: [
+          '(A) Next Tuesday morning.',
+          '(B) In the marketing department.',
+          '(C) Yes, she directed the film.'
+        ],
+        ans: 0,
+        explain: 'Câu hỏi "When" (Khi nào) → Đáp án chỉ thời gian (A) Next Tuesday morning. Câu (B) bẫy lặp từ "marketing", câu (C) bẫy câu hỏi Yes/No.'
+      },
+      {
+        id: 'p2_2',
+        questionAudio: 'Where should I put these signed contracts?',
+        options: [
+          '(A) On Mr. Tanaka’s desk.',
+          '(B) We signed them yesterday.',
+          '(C) About fifty pages.'
+        ],
+        ans: 0,
+        explain: 'Câu hỏi "Where" (Ở đâu) → Đáp án chỉ vị trí (A) Trên bàn của ông Tanaka.'
+      }
+    ];
+
+    const DICTATION_ITEMS = [
+      {
+        sentence: 'Please send me the updated schedule before noon',
+        meaning: 'Vui lòng gửi cho tôi lịch trình đã cập nhật trước buổi trưa.'
+      },
+      {
+        sentence: 'Our team is preparing for the client presentation',
+        meaning: 'Nhóm của chúng tôi đang chuẩn bị cho buổi thuyết trình với khách hàng.'
+      }
+    ];
+
+    const MOCK_QUESTIONS_BANK = [
+      {
+        part: 'part1', partLabel: 'Part 1 • Mô tả tranh',
+        scene: 'contract', caption: 'Tranh thi thử Part 1',
+        audioText: 'Picture 1. Listen to four statements. (A) Two people are signing a document at a desk. (B) They are painting the office wall. (C) A man is watering outdoor plants. (D) The desk is covered with food.',
+        prompt: 'Nghe mô tả bức tranh trên và chọn đáp án đúng nhất:',
+        options: ['(A) Two people are signing a document at a desk.', '(B) They are painting the office wall.', '(C) A man is watering outdoor plants.', '(D) The desk is covered with food.'],
+        ans: 0,
+        explain: 'Hai đối tác đang ngồi tại bàn ký kết hợp đồng/tài liệu (signing a document at a desk).'
+      },
+      {
+        part: 'part2', partLabel: 'Part 2 • Hỏi - Đáp',
+        audioText: 'Who is responsible for ordering office supplies?',
+        prompt: 'Nghe câu hỏi và chọn câu phản hồi tự nhiên nhất:',
+        options: ['(A) Ms. Lan in administration handles that.', '(B) Three boxes of printer paper.', '(C) Every Monday morning.'],
+        ans: 0,
+        explain: 'Câu hỏi "Who" (Ai chịu trách nhiệm) → Đáp án chỉ người phụ trách: (A) Cô Lan ở phòng hành chính lo việc đó.'
+      },
+      {
+        part: 'part2', partLabel: 'Part 2 • Hỏi - Đáp (Bẫy đồng âm)',
+        audioText: 'Could you review this budget proposal today?',
+        prompt: 'Nghe câu hỏi và chọn đáp án đúng:',
+        options: ['(A) The view from the window is great.', '(B) Sure, I will look at it after lunch.', '(C) No, I didn’t buy a new suit.'],
+        ans: 1,
+        explain: 'Câu (A) dùng từ đồng âm "view" để bẫy từ "review". Đáp án đúng là (B) Chắc chắn rồi, tôi sẽ xem sau bữa trưa.'
+      },
+      {
+        part: 'part5', partLabel: 'Part 5 • Hoàn thành câu',
+        prompt: 'The new software allows employees to share files _______ across different branches.',
+        options: ['(A) secure', '(B) securely', '(C) security', '(D) secured'],
+        ans: 1,
+        explain: 'Bổ nghĩa cho động từ "share" (chia sẻ một cách bảo mật/an toàn) cần Trạng từ → chọn (B) securely.'
+      },
+      {
+        part: 'part5', partLabel: 'Part 5 • Bẫy thì tương lai',
+        prompt: 'Customers will receive a confirmation email once their payment _______ processed.',
+        options: ['(A) is', '(B) will be', '(C) was', '(D) being'],
+        ans: 0,
+        explain: 'Sau liên từ thời gian "once" (một khi) không chia tương lai "will be", dùng hiện tại đơn bị động → (A) is.'
+      },
+      {
+        part: 'part5', partLabel: 'Part 7 • Đọc hiểu thông báo ngắn',
+        prompt: 'Đọc thông báo: "Notice: The main elevator will be closed for maintenance on Thursday from 9:00 AM to 1:00 PM. Please use the stairs near the east lobby." — Câu hỏi: Why will the elevator be closed?',
+        options: ['(A) For scheduled maintenance', '(B) Because of a power outage', '(C) To clean the east lobby', '(D) For a private VIP event'],
+        ans: 0,
+        explain: 'Thông báo ghi rõ: "closed for maintenance" (đóng cửa để bảo trì) → chọn (A).'
+      }
+    ];
+
+    // User State (Saved in LocalStorage + Syncable)
+    let appState = {
+      xp: 120,
+      studySeconds: 0,
+      dailyWordGoal: 5,
+      vocabStatus: { v1: 'mastered' }, // mastered | review
+      savedWords: [
+        { word: 'urgent', meaning: 'khẩn cấp, gấp' },
+        { word: 'submit', meaning: 'nộp, đệ trình' }
+      ],
+      grammarScore: { correct: 0, total: 0 },
+      listeningCorrect: 0,
+      lastMockScore: null, // out of 990
+      customMascotImg: null
+    };
+
+    let currentVocabIdx = 0;
+    let currentGrammarTopicIdx = 0;
+    let listeningRate = 1.0;
+    let currentListeningMode = 'part1';
+    let currentP1Idx = 0;
+    let currentP2Idx = 0;
+    let currentDictIdx = 0;
+    let userBuiltWords = [];
+    let timerInterval = null;
+    let isTimerRunning = false;
+    let lastQuestionTimestamp = Date.now();
+    let activeMockQuestions = [];
+    let mockUserAnswers = {};
+    let mockTimerInterval = null;
+
+    // ==================== 4. INITIALIZATION & STATE PERSISTENCE ====================
+    function loadState() {
+      const saved = localStorage.getItem('mun_sam_toeic_v4');
+      if (saved) {
+        try {
+          appState = { ...appState, ...JSON.parse(saved) };
+        } catch (e) {}
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem('mun_sam_toeic_v4', JSON.stringify(appState));
+      updateHeaderUI();
+      updateDiagnosticPanel();
+    }
+
+    function initApp() {
+      loadState();
+      renderMascots();
+      updateHeaderUI();
+      recalcRoadmapDates(45);
+      switchRoadmapView('day');
+      renderVocabSection();
+      renderSavedWords();
+      renderGrammarSection();
+      renderListeningSection();
+      updateDiagnosticPanel();
+    }
+
+    function renderMascots() {
+      document.getElementById('nav-mun-avatar').innerHTML = getMascotSVG('mun');
+      document.getElementById('nav-sam-avatar').innerHTML = getMascotSVG('sam');
+      setBubbleMascot('mun', 'Chào Pinkie! Hôm nay mình học nhẹ nhàng 5 từ mới kèm nghe nhìn tranh nha. Bấm "Bắt đầu học" để tính giờ nhé!');
+
+      const heroBox = document.getElementById('hero-mascot-container');
+      const resetBtn = document.getElementById('reset-mascot-btn');
+      if (appState.customMascotImg) {
+        heroBox.innerHTML = `<img src="${appState.customMascotImg}" alt="Mun & Sam Mascot" class="w-full h-auto max-h-52 object-contain rounded-xl" />`;
+        resetBtn.classList.remove('hidden');
+      } else {
+        heroBox.innerHTML = getMascotSVG('duo');
+        resetBtn.classList.add('hidden');
+      }
+    }
+
+    function uploadCustomMascot(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        appState.customMascotImg = e.target.result;
+        saveState();
+        renderMascots();
+        setBubbleMascot('sam', 'Ồ! Gắn đúng ảnh chính chủ của tụi tui rồi nè. Giờ thì học cho đàng hoàng nha!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetCustomMascot() {
+      appState.customMascotImg = null;
+      saveState();
+      renderMascots();
+    }
+
+    function updateHeaderUI() {
+      document.getElementById('xp-display').textContent = appState.xp;
+      const mins = String(Math.floor(appState.studySeconds / 60)).padStart(2, '0');
+      const secs = String(appState.studySeconds % 60).padStart(2, '0');
+      document.getElementById('study-timer-display').textContent = `${mins}:${secs}`;
+      document.getElementById('daily-words-select').value = appState.dailyWordGoal;
+      document.getElementById('daily-word-target-label').textContent = appState.dailyWordGoal;
+      document.getElementById('vocab-goal-badge').textContent = appState.dailyWordGoal;
+    }
+
+    // ==================== 5. AUTO-SCROLL NAVIGATION & TAB SWITCHER ====================
+    function scrollToContentTop() {
+      const anchor = document.getElementById('main-content-anchor');
+      if (anchor) {
+        const y = anchor.getBoundingClientRect().top + window.scrollY - 125;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['overview', 'vocab', 'grammar', 'listening', 'mocktest'];
+      tabs.forEach(t => {
+        document.getElementById(`section-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).classList.remove('active');
+      });
+      document.getElementById(`section-${tabName}`).classList.remove('hidden');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+
+      // Immediately jump to top of the newly opened content section
+      scrollToContentTop();
+    }
+
+    function jumpToStudy(tabName) {
+      if (!isTimerRunning) toggleStudyTimer();
+      switchTab(tabName);
+      if (tabName === 'vocab') setBubbleMascot('mun', 'Mình bắt đầu với từ vựng hình ảnh nhé! Nhớ bấm vào từ lạ trong câu ví dụ để lưu lại nha.');
+      if (tabName === 'grammar') setBubbleMascot('mun', 'Học ngữ pháp từ con số 0 cực dễ: nhìn dấu hiệu trước-sau chỗ trống trước rồi mới dịch!');
+      if (tabName === 'listening') setBubbleMascot('mun', 'Nghe nhìn tranh Part 1 nè! Quan sát kỹ hành động của nhân vật trong tranh trước khi bấm nghe nhé.');
+      if (tabName === 'mocktest') setBubbleMascot('sam', 'Vào phòng thi rồi đó! Cấm khoanh bừa hệ tâm linh, tui canh thời gian từng giây nha!');
+    }
+
+    // ==================== 6. STUDY TIMER & MASCOT REACTION ENGINE ====================
+    function toggleStudyTimer() {
+      const btn = document.getElementById('timer-toggle-btn');
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        btn.textContent = '▶ Tiếp tục học';
+        btn.className = 'px-3 py-1.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold shadow-sm transition';
+        if (appState.studySeconds < 2700) {
+          setBubbleMascot('sam', 'Ủa? Mới học được có chút xíu mà dừng rồi hả? 650 điểm tự rớt từ trên trời xuống hả má?');
+        }
+      } else {
+        isTimerRunning = true;
+        btn.textContent = '⏸ Tạm dừng';
+        btn.className = 'px-3 py-1.5 rounded-full bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold shadow-sm transition';
+        timerInterval = setInterval(() => {
+          appState.studySeconds++;
+          updateHeaderUI();
+          if (appState.studySeconds === 2700) {
+            appState.xp += 30;
+            saveState();
+            playFeedbackSound(true);
+            setBubbleMascot('sam', 'Ghê ta! Đủ 45 phút rồi đó, có công học hành cũng khác chứ bộ. Thưởng nóng 30 XP!');
+          }
+        }, 1000);
+      }
+    }
+
+    function setBubbleMascot(speaker, text) {
+      const avatarBox = document.getElementById('bubble-mascot-avatar');
+      const nameBadge = document.getElementById('bubble-speaker-name');
+      const msgEl = document.getElementById('bubble-dialogue-text');
+
+      if (speaker === 'mun') {
+        avatarBox.innerHTML = getMascotSVG('mun');
+        avatarBox.className = 'w-14 h-14 rounded-2xl bg-amber-100 border-2 border-amber-300 flex-shrink-0 overflow-hidden flex items-center justify-center';
+        nameBadge.textContent = '🎧 Mun mập';
+        nameBadge.className = 'text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800';
+      } else {
+        avatarBox.innerHTML = getMascotSVG('sam');
+        avatarBox.className = 'w-14 h-14 rounded-2xl bg-sky-100 border-2 border-sky-300 flex-shrink-0 overflow-hidden flex items-center justify-center';
+        nameBadge.textContent = '✏️ Sam lùn';
+        nameBadge.className = 'text-xs font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800';
+      }
+      msgEl.textContent = text;
+    }
+
+    function triggerLazyRoast() {
+      playFeedbackSound(false);
+      setBubbleMascot('sam', 'Ủa? 650 điểm tự rớt từ trên trời xuống hả má? Mở tab Từ vựng học đúng 5 từ rồi làm 3 câu Part 5 liền cho tui!');
+    }
+
+    function activateTiredMode() {
+      playFeedbackSound(true);
+      setBubbleMascot('mun', 'Mệt sau giờ làm thì ôn nhanh 5 phút thôi, nghỉ học luôn thì không được đâu nha. Mình mở Mini-game ôn nhẹ 3 từ nhé!');
+      openSamMiniGame();
+    }
+
+    function cycleMascotTip() {
+      const tips = [
+        ['mun', 'Mẹo Part 1: Tranh chỉ có đồ vật mà nghe thấy "being + V3/ed" (ví dụ: is being moved) thì loại ngay vì không có người tác động!'],
+        ['sam', 'Đọc kỹ đề giùm tui! Thấy đuôi -ly đừng vội khoanh trạng từ, coi chừng dính bẫy "timely" hoặc "friendly" đó nha!'],
+        ['mun', 'Hôm nay Pinkie chỉ cần học chắc 5 từ mới và bấm lưu các từ lạ trong câu ví dụ là bộ nhớ dài hạn hoạt động siêu tốt luôn.'],
+        ['sam', 'Cuối tuần nhớ vào tab Thi thử làm 1 đề tổng hợp để tui chấm điểm thang 990 xem tiến bộ tới đâu rồi!']
+      ];
+      const pick = tips[Math.floor(Math.random() * tips.length)];
+      setBubbleMascot(pick[0], pick[1]);
+    }
+
+    // ==================== 7. DIAGNOSTIC & ROADMAP ENGINE ====================
+    function updateDiagnosticPanel() {
+      const target = parseInt(document.getElementById('active-milestone-select').value, 10);
+      const masteredCount = Object.values(appState.vocabStatus).filter(v => v === 'mastered').length;
+      const vocabPct = Math.min(100, Math.round((masteredCount / VOCAB_BANK.length) * 100));
+
+      const gramTotal = appState.grammarScore.total;
+      const gramPct = gramTotal > 0 ? Math.round((appState.grammarScore.correct / gramTotal) * 100) : 0;
+
+      const listPct = Math.min(100, appState.listeningCorrect * 20);
+      const mockScore = appState.lastMockScore;
+
+      document.getElementById('diag-vocab-pct').textContent = `${vocabPct}%`;
+      document.getElementById('diag-vocab-bar').style.width = `${Math.max(8, vocabPct)}%`;
+      document.getElementById('diag-vocab-sub').textContent = `Đã thuộc ${masteredCount}/${VOCAB_BANK.length} từ cốt lõi`;
+
+      document.getElementById('diag-gram-pct').textContent = `${gramPct}%`;
+      document.getElementById('diag-gram-bar').style.width = `${Math.max(8, gramPct)}%`;
+      document.getElementById('diag-gram-sub').textContent = gramTotal > 0 ? `Đúng ${appState.grammarScore.correct}/${gramTotal} câu Part 5` : 'Chưa làm bài kiểm tra';
+
+      document.getElementById('diag-list-pct').textContent = `${listPct}%`;
+      document.getElementById('diag-list-bar').style.width = `${Math.max(8, listPct)}%`;
+      document.getElementById('diag-list-sub').textContent = `${appState.listeningCorrect} câu nghe đúng gần nhất`;
+
+      if (mockScore !== null) {
+        document.getElementById('diag-mock-score').textContent = `${mockScore}/990`;
+        document.getElementById('diag-mock-bar').style.width = `${Math.round((mockScore / 990) * 100)}%`;
+        document.getElementById('diag-mock-sub').textContent = mockScore >= target ? '🎉 Đã vượt mốc mục tiêu!' : `Còn thiếu ${target - mockScore} điểm tới mốc ${target}`;
+      }
+
+      // Dynamic Mun Advice & Sam Strict Command
+      const munEl = document.getElementById('mun-diagnostic-advice');
+      const samEl = document.getElementById('sam-diagnostic-command');
+      const badgeEl = document.getElementById('strictness-badge');
+
+      if (mockScore !== null && mockScore >= target) {
+        munEl.textContent = `Tuyệt vời! Điểm thi thử ${mockScore} của Pinkie đã chạm chuẩn mốc ${target}. Giai đoạn tiếp theo mình chuyển sang luyện tốc độ Part 7 và các bẫy từ đồng âm nâng cao nhé!`;
+        samEl.textContent = `Chúc mừng vượt mốc ${target}! Nhưng đừng có tự mãn rồi nghỉ xả hơi 3 ngày liền nha. Nâng mục tiêu lên mốc kế tiếp và giữ vững 45 phút/ngày cho tui!`;
+        badgeEl.textContent = 'Mức: Duy trì phong độ';
+      } else if (gramPct < 50 && gramTotal > 0) {
+        munEl.textContent = `Mun thấy tỷ lệ đúng Ngữ pháp đang ở mức ${gramPct}%. Pinkie đừng vội luyện đề dài, hãy quay lại Tab Ngữ pháp đọc kỹ khung cảnh báo "Bẫy đề thi" ở bài Từ loại và Thì trước nhé.`;
+        samEl.textContent = `Cảnh báo đỏ: Ngữ pháp đang hổng nặng (${gramPct}%)! Hôm nay cấm làm việc khác trước khi làm lại đúng hết 6 câu bài tập Part 5!`;
+        badgeEl.textContent = 'Mức: Kỷ luật thép';
+      } else {
+        munEl.textContent = `Để cán mốc ${target} TOEIC vững chắc, Pinkie cần duy trì đều ${appState.dailyWordGoal} từ/ngày, luyện nghe nhìn tranh Part 1 tốc độ 1.0x và làm 1 đề thi thử mỗi cuối tuần để đo điểm thực tế.`;
+        samEl.textContent = `Tiến độ tới mốc ${target} vẫn còn chặng đường dài! Hôm nay bắt buộc học đủ 45 phút, không được bỏ dở giữa chừng và phải làm xong ít nhất 1 bài thi thử Part 1-5!`;
+        badgeEl.textContent = 'Mức: Nghiêm khắc';
+      }
+    }
+
+    function changeDailyWordGoal(val) {
+      appState.dailyWordGoal = parseInt(val, 10);
+      saveState();
+      setBubbleMascot('mun', `Đã chỉnh chỉ tiêu xuống ${appState.dailyWordGoal} từ/ngày. Học ít nhưng nhớ sâu và ôn lặp lại đều đặn là chuẩn nhất!`);
+    }
+
+    function recalcRoadmapDates(mins) {
+      document.getElementById('slider-mins-label').textContent = mins;
+      const ratio = 45 / parseInt(mins, 10);
+      document.getElementById('eta-500').textContent = `~ ${Math.max(3, Math.round(6 * ratio))} tuần`;
+      document.getElementById('eta-650').textContent = `~ ${Math.max(6, Math.round(12 * ratio))} tuần`;
+      document.getElementById('eta-700').textContent = `~ ${Math.max(8, Math.round(16 * ratio))} tuần`;
+    }
+
+    function switchRoadmapView(mode) {
+      ['day', 'week', 'month'].forEach(m => {
+        const btn = document.getElementById(`rm-btn-${m}`);
+        btn.className = m === mode
+          ? 'px-2.5 py-1 rounded-lg bg-white text-purple-700 shadow-sm'
+          : 'px-2.5 py-1 rounded-lg text-slate-600';
+      });
+
+      const box = document.getElementById('roadmap-content-box');
+      if (mode === 'day') {
+        box.innerHTML = `
+          <div class="p-3 rounded-2xl bg-pink-50 border border-pink-200"><strong>15 phút đầu:</strong> Học ${appState.dailyWordGoal} từ vựng hình ảnh + nghe phát âm Anh/Mỹ + nhặt từ lạ trong câu.</div>
+          <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200"><strong>15 phút giữa:</strong> Học 1 mẹo ngữ pháp từ con số 0 + ghi nhớ khung bẫy đề thi + làm bài tập.</div>
+          <div class="p-3 rounded-2xl bg-sky-50 border border-sky-200"><strong>15 phút cuối:</strong> Nghe nhìn tranh Part 1 & phản xạ Part 2 (tốc độ 0.75x → 1.0x).</div>
+        `;
+      } else if (mode === 'week') {
+        box.innerHTML = `
+          <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200"><strong>Thứ 2 – Thứ 5:</strong> Nạp từ vựng công sở mới + luyện từng chủ điểm ngữ pháp nền tảng.</div>
+          <div class="p-3 rounded-2xl bg-purple-50 border border-purple-200"><strong>Thứ 6:</strong> Tổng ôn toàn bộ từ đã nhặt trong Sổ tay + chơi Mini-game tốc độ với Sam lùn.</div>
+          <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200"><strong>Thứ 7 – Chủ nhật:</strong> Làm 1 bài Thi thử TOEIC chấm điểm thang 990 và đọc lời giải chi tiết.</div>
+        `;
+      } else {
+        box.innerHTML = `
+          <div class="p-3 rounded-2xl bg-pink-50 border border-pink-200"><strong>Tháng 1 (Xây gốc 500):</strong> Thuộc 150-200 từ cốt lõi, nắm chắc từ loại, 3 thì cơ bản, nghe tranh Part 1.</div>
+          <div class="p-3 rounded-2xl bg-sky-50 border border-sky-200"><strong>Tháng 2-3 (Bứt phá 650):</strong> Thành thạo bẫy mệnh đề thời gian, giới từ, nghe hội thoại Part 2-3-4.</div>
+          <div class="p-3 rounded-2xl bg-purple-50 border border-purple-200"><strong>Tháng 4 (Chạm đỉnh 700):</strong> Luyện đề tổng hợp áp lực thời gian thật, tối ưu tốc độ đọc hiểu Part 7.</div>
+        `;
+      }
+    }
+
+    // ==================== 8. VOCABULARY & CLICK-TO-SAVE DICTIONARY ====================
+    function renderVocabSection() {
+      const item = VOCAB_BANK[currentVocabIdx];
+      const status = appState.vocabStatus[item.id] || 'new';
+
+      // Render top pills
+      const pillsBar = document.getElementById('vocab-pills-bar');
+      pillsBar.innerHTML = VOCAB_BANK.map((v, idx) => {
+        const st = appState.vocabStatus[v.id];
+        let badge = 'bg-white border-slate-200 text-slate-600';
+        if (idx === currentVocabIdx) badge = 'bg-pink-500 border-pink-500 text-white shadow-sm';
+        else if (st === 'mastered') badge = 'bg-emerald-100 border-emerald-300 text-emerald-800';
+        else if (st === 'review') badge = 'bg-amber-100 border-amber-300 text-amber-800';
+        return `<button onclick="selectVocab(${idx})" class="px-3 py-1.5 rounded-xl border text-xs font-bold whitespace-nowrap transition ${badge}">${idx + 1}. ${v.word}</button>`;
+      }).join('');
+
+      document.getElementById('vocab-illustration-box').innerHTML = getRealisticSceneSVG(item.scene, item.caption);
+      document.getElementById('vocab-word-title').textContent = item.word;
+      document.getElementById('vocab-word-pos').textContent = item.pos;
+      document.getElementById('vocab-word-ipa').textContent = item.ipa;
+      document.getElementById('vocab-word-meaning').textContent = item.meaning;
+      document.getElementById('vocab-word-mnemonic').textContent = item.mnemonic;
+
+      const statusBadge = document.getElementById('vocab-word-status');
+      if (status === 'mastered') {
+        statusBadge.textContent = '✅ Đã thuộc lòng';
+        statusBadge.className = 'px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold';
+      } else if (status === 'review') {
+        statusBadge.textContent = '🤔 Cần ôn lại';
+        statusBadge.className = 'px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold';
+      } else {
+        statusBadge.textContent = '🆕 Từ mới hôm nay';
+        statusBadge.className = 'px-2.5 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold';
+      }
+
+      // Render clickable words in example sentence
+      const words = item.exampleEn.split(' ');
+      document.getElementById('vocab-example-en').innerHTML = words.map(raw => {
+        const clean = raw.toLowerCase().replace(/[^a-z-]/g, '');
+        return `<span class="clickable-word" onclick="saveClickedWord('${clean}')" title="Bấm để tra nghĩa & lưu vào sổ tay">${raw}</span>`;
+      }).join(' ');
+      document.getElementById('vocab-example-vi').textContent = item.exampleVi;
+    }
+
+    function selectVocab(idx) {
+      currentVocabIdx = idx;
+      renderVocabSection();
+      scrollToContentTop();
+    }
+
+    function nextVocab() {
+      currentVocabIdx = (currentVocabIdx + 1) % VOCAB_BANK.length;
+      renderVocabSection();
+      scrollToContentTop();
+    }
+
+    function prevVocab() {
+      currentVocabIdx = (currentVocabIdx - 1 + VOCAB_BANK.length) % VOCAB_BANK.length;
+      renderVocabSection();
+      scrollToContentTop();
+    }
+
+    function markVocabStatus(status) {
+      const item = VOCAB_BANK[currentVocabIdx];
+      const prevStatus = appState.vocabStatus[item.id];
+      appState.vocabStatus[item.id] = status;
+
+      if (status === 'mastered') {
+        appState.xp += 10;
+        playFeedbackSound(true);
+        setBubbleMascot('sam', `Thuộc thêm từ "${item.word}" rồi đó! Nay học đàng hoàng, cộng ngay 10 XP!`);
+      } else {
+        playFeedbackSound(false);
+        if (prevStatus === 'mastered') {
+          setBubbleMascot('sam', `Lại quên chữ "${item.word}" nữa? Rồi, đánh dấu học lại cho tao!`);
+        } else {
+          setBubbleMascot('mun', `Không sao đâu, Mun đã ghim từ "${item.word}" vào danh sách ưu tiên nhắc lại rồi nhé!`);
+        }
+      }
+      saveState();
+      nextVocab();
+    }
+
+    function saveClickedWord(cleanWord) {
+      if (!cleanWord || cleanWord.length < 2) return;
+      const item = VOCAB_BANK[currentVocabIdx];
+      const meaning = item.dict[cleanWord] || (cleanWord === item.word ? item.meaning : 'Từ vựng mở rộng trong ngữ cảnh');
+      const exists = appState.savedWords.some(w => w.word === cleanWord);
+      if (!exists) {
+        appState.savedWords.unshift({ word: cleanWord, meaning });
+        appState.xp += 3;
+        saveState();
+        renderSavedWords();
+        playFeedbackSound(true);
+        setBubbleMascot('mun', `Đã lưu từ "${cleanWord}" (${meaning}) vào Sổ tay từ mới của Pinkie rồi nha! (+3 XP)`);
+      } else {
+        setBubbleMascot('mun', `Từ "${cleanWord}" (${meaning}) đã có sẵn trong Sổ tay của Pinkie rồi nè!`);
+      }
+      speakText(cleanWord, 0.95);
+    }
+
+    function renderSavedWords() {
+      document.getElementById('saved-words-count').textContent = appState.savedWords.length;
+      const container = document.getElementById('saved-words-list');
+      if (appState.savedWords.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-400 col-span-full">Chưa có từ nào. Hãy bấm vào từ lạ trong câu ví dụ phía trên nhé!</p>`;
+        return;
+      }
+      container.innerHTML = appState.savedWords.map((w, idx) => `
+        <div class="p-3 rounded-2xl bg-purple-50/70 border border-purple-200 flex items-center justify-between gap-2">
+          <div>
+            <div class="font-bold text-sm text-purple-800">${w.word}</div>
+            <div class="text-xs text-slate-600">${w.meaning}</div>
+          </div>
+          <div class="flex items-center gap-1">
+            <button onclick="speakText('${w.word}', 0.95)" class="p-1.5 rounded-lg bg-white text-sky-600 text-xs font-bold border border-sky-100">🔊</button>
+            <button onclick="removeSavedWord(${idx})" class="p-1.5 rounded-lg bg-white text-rose-500 text-xs font-bold border border-rose-100">✕</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function removeSavedWord(idx) {
+      appState.savedWords.splice(idx, 1);
+      saveState();
+      renderSavedWords();
+    }
+
+    function speakText(text, rate = 0.95, lang = 'en-US') {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang;
+      utter.rate = rate;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function speakCurrentWord(lang) {
+      speakText(VOCAB_BANK[currentVocabIdx].word, 0.9, lang);
+    }
+
+    function speakExampleSentence() {
+      speakText(VOCAB_BANK[currentVocabIdx].exampleEn, 0.9, 'en-US');
+    }
+
+    // ==================== 9. GRAMMAR SECTION ====================
+    function renderGrammarSection() {
+      const btnBar = document.getElementById('grammar-topic-buttons');
+      btnBar.innerHTML = GRAMMAR_TOPICS.map((t, idx) => `
+        <button onclick="selectGrammarTopic(${idx})" class="px-3.5 py-2 rounded-2xl text-xs font-bold transition ${idx === currentGrammarTopicIdx ? 'bg-emerald-500 text-white shadow-sm' : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100'}">
+          ${t.title.split('(')[0].trim()}
+        </button>
+      `).join('');
+
+      const topic = GRAMMAR_TOPICS[currentGrammarTopicIdx];
+      document.getElementById('grammar-lesson-container').innerHTML = `
+        <div class="p-5 rounded-3xl bg-white border-2 border-emerald-200 space-y-3">
+          <h3 class="text-lg font-bold text-emerald-800">${topic.title}</h3>
+          <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 font-bold text-xs sm:text-sm text-emerald-900">
+            📐 Công thức vàng: ${topic.formula}
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${topic.explanation}</p>
+          <div class="p-3.5 rounded-2xl bg-rose-50 border-2 border-rose-200 text-xs sm:text-sm text-rose-900 leading-relaxed">
+            ${topic.trapNote}
+          </div>
+        </div>
+      `;
+
+      lastQuestionTimestamp = Date.now();
+      const quizBox = document.getElementById('grammar-quiz-container');
+      quizBox.innerHTML = topic.questions.map((q, qIdx) => `
+        <div class="p-4 rounded-2xl bg-white border border-purple-200 space-y-2.5">
+          <p class="text-sm font-bold text-slate-800">Câu ${qIdx + 1}: ${q.q}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${q.options.map((opt, oIdx) => `
+              <button id="gq-${qIdx}-${oIdx}" onclick="checkGrammarAnswer(${qIdx}, ${oIdx})" class="p-2.5 rounded-xl bg-slate-50 hover:bg-purple-50 border border-slate-200 text-left text-xs font-bold text-slate-700 transition">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="gq-exp-${qIdx}" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+      `).join('');
+    }
+
+    function selectGrammarTopic(idx) {
+      currentGrammarTopicIdx = idx;
+      renderGrammarSection();
+      scrollToContentTop();
+    }
+
+    function checkGrammarAnswer(qIdx, chosenIdx) {
+      const topic = GRAMMAR_TOPICS[currentGrammarTopicIdx];
+      const q = topic.questions[qIdx];
+      const expEl = document.getElementById(`gq-exp-${qIdx}`);
+      if (!expEl.classList.contains('hidden')) return; // already answered
+
+      const elapsed = (Date.now() - lastQuestionTimestamp) / 1000;
+      lastQuestionTimestamp = Date.now();
+
+      appState.grammarScore.total++;
+      const isCorrect = chosenIdx === q.ans;
+
+      q.options.forEach((_, oIdx) => {
+        const btn = document.getElementById(`gq-${qIdx}-${oIdx}`);
+        if (oIdx === q.ans) btn.className = 'p-2.5 rounded-xl bg-emerald-500 text-white text-left text-xs font-bold';
+        else if (oIdx === chosenIdx) btn.className = 'p-2.5 rounded-xl bg-rose-500 text-white text-left text-xs font-bold';
+      });
+
+      expEl.classList.remove('hidden');
+      if (isCorrect) {
+        appState.grammarScore.correct++;
+        appState.xp += 10;
+        playFeedbackSound(true);
+        expEl.className = 'p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs leading-relaxed';
+        expEl.innerHTML = `✅ <strong>Chính xác (+10 XP)!</strong> ${q.explain}`;
+        setBubbleMascot('sam', 'Bắt bài chuẩn đó! Nhìn phát ra ngay quy tắc, thưởng 10 XP!');
+      } else {
+        playFeedbackSound(false);
+        expEl.className = 'p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs leading-relaxed';
+        expEl.innerHTML = `❌ <strong>Chưa đúng rồi!</strong> ${q.explain}`;
+        if (elapsed < 2.5) {
+          setBubbleMascot('sam', 'Đọc kỹ đề giùm tui! Mới có 2 giây đã bấm bừa, đừng chơi hệ tâm linh!');
+        } else {
+          setBubbleMascot('mun', `Mun giải thích nè: ${q.explain}`);
+        }
+      }
+
+      document.getElementById('grammar-score-badge').textContent = `Điểm: ${appState.grammarScore.correct}/${appState.grammarScore.total}`;
+      saveState();
+    }
+
+    // ==================== 10. LISTENING SECTION (PICTURE + PART 2 + DICTATION) ====================
+    function setListeningRate(rate) {
+      listeningRate = rate;
+      document.getElementById('rate-075').className = rate === 0.75 ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-sky-700 shadow-sm' : 'px-2.5 py-1 rounded-lg text-xs font-bold text-sky-700';
+      document.getElementById('rate-100').className = rate === 1.0 ? 'px-2.5 py-1 rounded-lg text-xs font-bold bg-white text-sky-700 shadow-sm' : 'px-2.5 py-1 rounded-lg text-xs font-bold text-sky-700';
+      setBubbleMascot('mun', rate === 0.75 ? 'Đã chuyển sang tốc độ 0.75x cho Pinkie nghe rõ từng âm cuối nhé!' : 'Đã bật tốc độ 1.0x chuẩn phòng thi TOEIC thật rồi nha!');
+    }
+
+    function switchListeningMode(mode) {
+      currentListeningMode = mode;
+      ['part1', 'part2', 'dictation'].forEach(m => {
+        document.getElementById(`lmode-${m}`).className = m === mode
+          ? 'px-4 py-2 rounded-2xl bg-sky-500 text-white text-xs font-bold shadow-sm'
+          : 'px-4 py-2 rounded-2xl bg-sky-100 text-sky-800 text-xs font-bold';
+      });
+      renderListeningSection();
+      scrollToContentTop();
+    }
+
+    function renderListeningSection() {
+      const box = document.getElementById('listening-workspace');
+      if (currentListeningMode === 'part1') {
+        const item = LISTENING_PART1_ITEMS[currentP1Idx];
+        box.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-5 flex flex-col items-center">
+              ${getRealisticSceneSVG(item.scene, item.caption)}
+            </div>
+            <div class="lg:col-span-7 space-y-4">
+              <div class="p-4 rounded-2xl bg-sky-50 border border-sky-200 flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs font-bold text-sky-900">🎧 Nghe 4 câu mô tả bức tranh (Ẩn chữ như thi thật):</span>
+                <button onclick="playPart1Audio()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold shadow-sm">
+                  🔊 Phát băng Part 1
+                </button>
+              </div>
+              <div class="grid grid-cols-1 gap-2">
+                ${['(A)', '(B)', '(C)', '(D)'].map((label, idx) => `
+                  <button id="p1-opt-${idx}" onclick="checkPart1(${idx})" class="p-3 rounded-2xl bg-white hover:bg-sky-50 border-2 border-slate-200 text-left text-xs sm:text-sm font-bold text-slate-700 transition">
+                    Đáp án ${label} <span class="text-slate-400 font-normal">(Bấm nghe rồi chọn)</span>
+                  </button>
+                `).join('')}
+              </div>
+              <div id="p1-feedback" class="hidden p-3.5 rounded-2xl text-xs leading-relaxed"></div>
+              <div class="flex justify-end">
+                <button onclick="nextPart1()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Tranh tiếp theo →</button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (currentListeningMode === 'part2') {
+        const item = LISTENING_PART2_ITEMS[currentP2Idx];
+        box.innerHTML = `
+          <div class="max-w-2xl mx-auto space-y-4">
+            <div class="p-5 rounded-3xl bg-sky-50 border-2 border-sky-200 text-center space-y-3">
+              <p class="text-xs font-bold text-sky-800">Nghe câu hỏi và 3 lựa chọn A - B - C (Bắt từ để hỏi đầu câu!)</p>
+              <button onclick="playPart2Audio()" class="px-5 py-2.5 rounded-2xl bg-sky-500 hover:bg-sky-600 text-white text-sm font-bold shadow-md">
+                🔊 Nghe câu hỏi Part 2
+              </button>
+            </div>
+            <div class="space-y-2">
+              ${['(A)', '(B)', '(C)'].map((label, idx) => `
+                <button id="p2-opt-${idx}" onclick="checkPart2(${idx})" class="w-full p-3.5 rounded-2xl bg-white hover:bg-sky-50 border-2 border-slate-200 text-left text-xs sm:text-sm font-bold text-slate-700">
+                  Lựa chọn ${label}
+                </button>
+              `).join('')}
+            </div>
+            <div id="p2-feedback" class="hidden p-3.5 rounded-2xl text-xs leading-relaxed"></div>
+            <div class="flex justify-end">
+              <button onclick="nextPart2()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">Câu tiếp theo →</button>
+            </div>
+          </div>
+        `;
+      } else {
+        const item = DICTATION_ITEMS[currentDictIdx];
+        userBuiltWords = [];
+        const shuffled = [...item.sentence.split(' ')].sort(() => Math.random() - 0.5);
+        box.innerHTML = `
+          <div class="max-w-2xl mx-auto space-y-4">
+            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-900">🧩 Nghe câu tiếng Anh và bấm các mảnh từ bên dưới để ráp lại:</span>
+              <button onclick="speakText('${item.sentence}', listeningRate)" class="px-4 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold">🔊 Nghe câu mẫu</button>
+            </div>
+            <div id="dict-built-area" class="min-h-[56px] p-3 rounded-2xl bg-purple-50 border-2 border-dashed border-purple-300 flex flex-wrap gap-2 items-center">
+              <span class="text-xs text-purple-400">Các từ bạn chọn sẽ xếp vào đây...</span>
+            </div>
+            <div id="dict-bank-area" class="flex flex-wrap gap-2">
+              ${shuffled.map((w, i) => `<button id="dw-${i}" onclick="pickDictWord('${w}', 'dw-${i}')" class="px-3.5 py-2 rounded-xl bg-white hover:bg-sky-50 border-2 border-sky-200 text-xs font-bold text-slate-800 shadow-sm">${w}</button>`).join('')}
+            </div>
+            <div class="flex gap-2">
+              <button onclick="renderListeningSection()" class="px-4 py-2 rounded-xl bg-slate-100 text-xs font-bold text-slate-600">↻ Xếp lại</button>
+              <button onclick="checkDictation()" class="px-4 py-2 rounded-xl bg-emerald-500 text-white text-xs font-bold">✅ Kiểm tra câu ráp</button>
+              <button onclick="nextDictation()" class="px-4 py-2 rounded-xl bg-sky-100 text-sky-800 text-xs font-bold ml-auto">Câu khác →</button>
+            </div>
+            <div id="dict-feedback" class="hidden p-3 rounded-2xl text-xs"></div>
+          </div>
+        `;
+      }
+    }
+
+    function playPart1Audio() {
+      const item = LISTENING_PART1_ITEMS[currentP1Idx];
+      speakText(item.options.join(' ... '), listeningRate);
+    }
+
+    function checkPart1(idx) {
+      const item = LISTENING_PART1_ITEMS[currentP1Idx];
+      const fb = document.getElementById('p1-feedback');
+      if (!fb.classList.contains('hidden')) return;
+
+      item.options.forEach((fullText, i) => {
+        const btn = document.getElementById(`p1-opt-${i}`);
+        btn.textContent = fullText;
+        if (i === item.ans) btn.className = 'p-3 rounded-2xl bg-emerald-500 text-white text-left text-xs sm:text-sm font-bold';
+        else if (i === idx) btn.className = 'p-3 rounded-2xl bg-rose-500 text-white text-left text-xs sm:text-sm font-bold';
+      });
+
+      fb.classList.remove('hidden');
+      if (idx === item.ans) {
+        appState.listeningCorrect++;
+        appState.xp += 10;
+        playFeedbackSound(true);
+        fb.className = 'p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs';
+        fb.innerHTML = `✅ <strong>Chuẩn xác (+10 XP)!</strong> ${item.explain}`;
+        setBubbleMascot('mun', 'Ê, hôm nay nghe nhìn tranh nhạy hơn hôm qua thiệt nè! Giỏi quá!');
+      } else {
+        playFeedbackSound(false);
+        fb.className = 'p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs';
+        fb.innerHTML = `❌ <strong>Chưa khớp tranh rồi!</strong> ${item.explain}`;
+        setBubbleMascot('mun', `Mun chỉ mẹo nè: ${item.explain}`);
+      }
+      saveState();
+    }
+
+    function nextPart1() {
+      currentP1Idx = (currentP1Idx + 1) % LISTENING_PART1_ITEMS.length;
+      renderListeningSection();
+    }
+
+    function playPart2Audio() {
+      const item = LISTENING_PART2_ITEMS[currentP2Idx];
+      speakText(`${item.questionAudio} ... ${item.options.join(' ... ')}`, listeningRate);
+    }
+
+    function checkPart2(idx) {
+      const item = LISTENING_PART2_ITEMS[currentP2Idx];
+      const fb = document.getElementById('p2-feedback');
+      if (!fb.classList.contains('hidden')) return;
+
+      item.options.forEach((txt, i) => {
+        const btn = document.getElementById(`p2-opt-${i}`);
+        btn.textContent = txt;
+        if (i === item.ans) btn.className = 'w-full p-3.5 rounded-2xl bg-emerald-500 text-white text-left text-xs sm:text-sm font-bold';
+        else if (i === idx) btn.className = 'w-full p-3.5 rounded-2xl bg-rose-500 text-white text-left text-xs sm:text-sm font-bold';
+      });
+
+      fb.classList.remove('hidden');
+      if (idx === item.ans) {
+        appState.listeningCorrect++;
+        appState.xp += 10;
+        playFeedbackSound(true);
+        fb.className = 'p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs';
+        fb.innerHTML = `✅ <strong>Đúng rồi (+10 XP)!</strong> Câu hỏi: <em>"${item.questionAudio}"</em> — ${item.explain}`;
+      } else {
+        playFeedbackSound(false);
+        fb.className = 'p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs';
+        fb.innerHTML = `❌ <strong>Dính bẫy rồi!</strong> Câu hỏi: <em>"${item.questionAudio}"</em> — ${item.explain}`;
+      }
+      saveState();
+    }
+
+    function nextPart2() {
+      currentP2Idx = (currentP2Idx + 1) % LISTENING_PART2_ITEMS.length;
+      renderListeningSection();
+    }
+
+    function pickDictWord(word, btnId) {
+      document.getElementById(btnId).classList.add('hidden');
+      userBuiltWords.push(word);
+      const area = document.getElementById('dict-built-area');
+      area.innerHTML = userBuiltWords.map(w => `<span class="px-3 py-1.5 rounded-xl bg-purple-600 text-white text-xs font-bold">${w}</span>`).join('');
+    }
+
+    function checkDictation() {
+      const item = DICTATION_ITEMS[currentDictIdx];
+      const fb = document.getElementById('dict-feedback');
+      fb.classList.remove('hidden');
+      if (userBuiltWords.join(' ') === item.sentence) {
+        appState.xp += 12;
+        saveState();
+        playFeedbackSound(true);
+        fb.className = 'p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs font-bold';
+        fb.textContent = `🎉 Hoàn hảo (+12 XP)! Nghĩa: ${item.meaning}`;
+      } else {
+        playFeedbackSound(false);
+        fb.className = 'p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 text-xs';
+        fb.innerHTML = `❌ Chưa khớp thứ tự. Đáp án đúng: <strong>${item.sentence}</strong> (${item.meaning})`;
+      }
+    }
+
+    function nextDictation() {
+      currentDictIdx = (currentDictIdx + 1) % DICTATION_ITEMS.length;
+      renderListeningSection();
+    }
+
+    // ==================== 11. MOCK TEST ENGINE (BY PART & FULL 990) ====================
+    function startMockTest(mode) {
+      activeMockQuestions = mode === 'full'
+        ? MOCK_QUESTIONS_BANK
+        : MOCK_QUESTIONS_BANK.filter(q => q.part === mode);
+
+      mockUserAnswers = {};
+      document.getElementById('mock-result-arena').classList.add('hidden');
+      const arena = document.getElementById('mock-test-arena');
+      arena.classList.remove('hidden');
+
+      // Countdown timer
+      let secsLeft = mode === 'full' ? 600 : 300;
+      document.getElementById('mock-timer-badge').classList.remove('hidden');
+      clearInterval(mockTimerInterval);
+      mockTimerInterval = setInterval(() => {
+        secsLeft--;
+        const m = String(Math.floor(secsLeft / 60)).padStart(2, '0');
+        const s = String(secsLeft % 60).padStart(2, '0');
+        document.getElementById('mock-countdown').textContent = `${m}:${s}`;
+        if (secsLeft <= 0) submitMockTest();
+      }, 1000);
+
+      arena.innerHTML = `
+        <div class="space-y-4">
+          ${activeMockQuestions.map((q, idx) => `
+            <div class="p-4 sm:p-5 rounded-3xl bg-white border-2 border-purple-100 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">Câu ${idx + 1} • ${q.partLabel}</span>
+                ${q.audioText ? `<button onclick="speakText('${q.audioText.replace(/'/g, "\\'")}', 1.0)" class="px-3 py-1.5 rounded-xl bg-sky-500 text-white text-xs font-bold">🔊 Nghe băng câu ${idx + 1}</button>` : ''}
+              </div>
+              ${q.scene ? `<div class="flex justify-center">${getRealisticSceneSVG(q.scene, q.caption)}</div>` : ''}
+              <p class="text-sm font-bold text-slate-800">${q.prompt}</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                ${q.options.map((opt, oIdx) => `
+                  <button id="mock-q-${idx}-o-${oIdx}" onclick="selectMockOption(${idx}, ${oIdx})" class="p-3 rounded-xl bg-slate-50 hover:bg-purple-50 border-2 border-slate-200 text-left text-xs font-bold text-slate-700 transition">
+                    ${opt}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          `).join('')}
+          <div class="flex justify-center pt-2">
+            <button onclick="submitMockTest()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-sm shadow-lg hover:opacity-95 transition">
+              🏁 Nộp bài & Chấm điểm thang 990
+            </button>
+          </div>
+        </div>
+      `;
+      scrollToContentTop();
+    }
+
+    function selectMockOption(qIdx, oIdx) {
+      mockUserAnswers[qIdx] = oIdx;
+      const q = activeMockQuestions[qIdx];
+      q.options.forEach((_, i) => {
+        const btn = document.getElementById(`mock-q-${qIdx}-o-${i}`);
+        btn.className = i === oIdx
+          ? 'p-3 rounded-xl bg-purple-600 border-2 border-purple-600 text-left text-xs font-bold text-white shadow-sm'
+          : 'p-3 rounded-xl bg-slate-50 hover:bg-purple-50 border-2 border-slate-200 text-left text-xs font-bold text-slate-700 transition';
+      });
+    }
+
+    function submitMockTest() {
+      clearInterval(mockTimerInterval);
+      document.getElementById('mock-timer-badge').classList.add('hidden');
+      document.getElementById('mock-test-arena').classList.add('hidden');
+
+      let correctCount = 0;
+      activeMockQuestions.forEach((q, idx) => {
+        if (mockUserAnswers[idx] === q.ans) correctCount++;
+      });
+
+      const total = activeMockQuestions.length;
+      const accuracy = correctCount / total;
+      // Scale to TOEIC 990 score range (150 - 990)
+      const scaledScore = Math.round((150 + accuracy * 840) / 5) * 5;
+      appState.lastMockScore = scaledScore;
+      appState.xp += correctCount * 15;
+      saveState();
+
+      playFeedbackSound(accuracy >= 0.6);
+      setBubbleMascot(
+        accuracy >= 0.7 ? 'sam' : 'mun',
+        accuracy >= 0.7
+          ? `Ghê ta! Đạt quy đổi ${scaledScore}/990 điểm luôn! Đọc kỹ lời giải mấy câu sai để lần sau bứt phá tiếp nha!`
+          : `Đạt quy đổi ${scaledScore}/990 điểm. Mun đã viết lời giải chi tiết từng câu bên dưới, Pinkie xem kỹ để rút kinh nghiệm nhé!`
+      );
+
+      const resArena = document.getElementById('mock-result-arena');
+      resArena.classList.remove('hidden');
+      resArena.innerHTML = `
+        <div class="p-6 rounded-3xl bg-gradient-to-r from-purple-100 via-pink-100 to-amber-100 border-2 border-purple-300 text-center space-y-2">
+          <div class="text-xs font-bold uppercase text-purple-700">Kết quả chấm điểm tự động</div>
+          <div class="text-4xl font-bold text-purple-900">${scaledScore} <span class="text-lg font-semibold text-slate-600">/ 990 điểm TOEIC</span></div>
+          <p class="text-xs sm:text-sm font-bold text-slate-700">
+            Đúng ${correctCount}/${total} câu • ${scaledScore >= 700 ? '🏆 Chạm mốc Mục tiêu 3 (700+)!' : scaledScore >= 650 ? '🌟 Vượt mốc Mục tiêu 2 (650+)!' : scaledScore >= 500 ? '✅ Đạt chuẩn Mục tiêu 1 (500+)!' : '💪 Tiếp tục luyện tập để cán mốc 500+ nhé!'}
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-base font-bold text-slate-800">📖 Lời giải chi tiết & Phân tích bẫy từng câu:</h3>
+          ${activeMockQuestions.map((q, idx) => {
+            const userAns = mockUserAnswers[idx];
+            const ok = userAns === q.ans;
+            return `
+              <div class="p-4 rounded-2xl border-2 ${ok ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'} space-y-1.5 text-xs">
+                <div class="font-bold ${ok ? 'text-emerald-800' : 'text-rose-800'}">
+                  ${ok ? '✅' : '❌'} Câu ${idx + 1} (${q.partLabel}): ${q.prompt}
+                </div>
+                <div class="text-slate-700">
+                  Bạn chọn: <strong>${userAns !== undefined ? q.options[userAns] : 'Chưa chọn'}</strong> • Đáp án đúng: <strong class="text-emerald-700">${q.options[q.ans]}</strong>
+                </div>
+                <div class="p-2.5 rounded-xl bg-white/90 text-slate-700">
+                  🎧 <strong>Mun mập giải thích:</strong> ${q.explain}
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+      scrollToContentTop();
+    }
+
+    // ==================== 12. SAM LÙN MINI-GAME & MULTI-DEVICE SYNC ====================
+    function openSamMiniGame() {
+      const modal = document.getElementById('minigame-modal');
+      modal.classList.remove('hidden');
+      const targetItem = VOCAB_BANK[Math.floor(Math.random() * VOCAB_BANK.length)];
+      const distractors = VOCAB_BANK.filter(v => v.id !== targetItem.id).slice(0, 2);
+      const choices = [targetItem, ...distractors].sort(() => Math.random() - 0.5);
+
+      document.getElementById('minigame-body').innerHTML = `
+        <p class="text-xs text-slate-600">Chọn nhanh nghĩa tiếng Việt của từ sau:</p>
+        <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center">
+          <div class="text-2xl font-bold text-pink-600">${targetItem.word}</div>
+          <div class="text-xs text-slate-500">${targetItem.ipa}</div>
+        </div>
+        <div class="space-y-2">
+          ${choices.map(c => `
+            <button onclick="answerMiniGame('${c.id === targetItem.id}')" class="w-full p-3 rounded-xl bg-slate-50 hover:bg-sky-50 border border-slate-200 text-left text-xs font-bold text-slate-800">
+              ${c.meaning}
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function answerMiniGame(isRightStr) {
+      const ok = isRightStr === 'true';
+      playFeedbackSound(ok);
+      if (ok) {
+        appState.xp += 8;
+        saveState();
+        setBubbleMascot('sam', 'Phản xạ lẹ đó! Thưởng 8 XP, giữ phong độ này nha!');
+        openSamMiniGame();
+      } else {
+        setBubbleMascot('sam', 'Sai rồi má ơi! Bấm lại cho đúng rồi mới được đóng bảng!');
+      }
+    }
+
+    function closeSamMiniGame() {
+      document.getElementById('minigame-modal').classList.add('hidden');
+    }
+
+    function openSyncModal() {
+      const payload = btoa(unescape(encodeURIComponent(JSON.stringify({
+        xp: appState.xp,
+        studySeconds: appState.studySeconds,
+        dailyWordGoal: appState.dailyWordGoal,
+        vocabStatus: appState.vocabStatus,
+        savedWords: appState.savedWords,
+        grammarScore: appState.grammarScore,
+        listeningCorrect: appState.listeningCorrect,
+        lastMockScore: appState.lastMockScore
+      }))));
+      document.getElementById('sync-export-box').value = payload;
+      document.getElementById('sync-modal').classList.remove('hidden');
+    }
+
+    function closeSyncModal() {
+      document.getElementById('sync-modal').classList.add('hidden');
+    }
+
+    function copySyncCode() {
+      const box = document.getElementById('sync-export-box');
+      box.select();
+      navigator.clipboard?.writeText(box.value);
+      playFeedbackSound(true);
+      setBubbleMascot('mun', 'Đã sao chép mã đồng bộ! Pinkie mở web trên điện thoại rồi dán mã này vào là giữ nguyên toàn bộ tiến trình nha.');
+    }
+
+    function importSyncCode() {
+      try {
+        const raw = document.getElementById('sync-import-box').value.trim();
+        const decoded = JSON.parse(decodeURIComponent(escape(atob(raw))));
+        appState = { ...appState, ...decoded };
+        saveState();
+        initApp();
+        closeSyncModal();
+        playFeedbackSound(true);
+        setBubbleMascot('sam', 'Đồng bộ dữ liệu thành công! Học tiếp từ chỗ hôm qua thôi nào!');
+      } catch (e) {
+        playFeedbackSound(false);
+        alert('Mã đồng bộ chưa hợp lệ, Pinkie kiểm tra lại xem đã copy đủ chuỗi ký tự chưa nhé!');
+      }
+    }
+
+    // Boot App
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+</html>
