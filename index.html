@@ -168,7 +168,7 @@
         </div>
         <div class="rounded-2xl p-4 bg-[#fceddf] border border-[#f5dac2]">
           <div class="text-xs font-semibold text-[#8c6b4f]">Ngân hàng từ</div>
-          <div class="text-lg font-bold text-slate-800 mt-2">21 từ • 7 chủ đề</div>
+          <div class="text-lg font-bold text-slate-800 mt-2">42 từ • 7 chủ đề</div>
         </div>
       </div>
 
@@ -233,14 +233,14 @@
             <option value="6">6 từ/ngày</option><option value="7">7 từ/ngày</option><option value="8">8 từ/ngày</option>
           </select>
           <select id="vocab-topic-select" onchange="filterVocabTopic(this.value)" class="px-2.5 py-1 rounded-xl bg-[#f5f4fb] text-slate-800 border border-[#e3e0f2] outline-none">
-            <option value="all">Tất cả 7 chủ đề (21 từ)</option>
-            <option value="office">🏢 Văn phòng (3 từ)</option>
-            <option value="travel">✈️ Du lịch & Khách sạn (3 từ)</option>
-            <option value="shopping">🛍️ Mua sắm & Cửa hàng (3 từ)</option>
-            <option value="dining">🍽️ Nhà hàng & Sự kiện (3 từ)</option>
-            <option value="maintenance">🛠️ Bảo trì & Sửa chữa (3 từ)</option>
-            <option value="finance">💳 Tài chính & Hóa đơn (3 từ)</option>
-            <option value="logistics">📦 Giao nhận & Kho vận (3 từ)</option>
+            <option value="all">Tất cả 7 chủ đề (42 từ)</option>
+            <option value="office">🏢 Văn phòng (6 từ)</option>
+            <option value="travel">✈️ Du lịch & Khách sạn (6 từ)</option>
+            <option value="shopping">🛍️ Mua sắm & Cửa hàng (6 từ)</option>
+            <option value="dining">🍽️ Nhà hàng & Sự kiện (6 từ)</option>
+            <option value="maintenance">🛠️ Bảo trì & Sửa chữa (6 từ)</option>
+            <option value="finance">💳 Tài chính & Hóa đơn (6 từ)</option>
+            <option value="logistics">📦 Giao nhận & Kho vận (6 từ)</option>
           </select>
         </div>
       </div>
@@ -458,31 +458,65 @@
 
     // ==================== 21 WORDS ACROSS 7 TOEIC TOPICS ====================
     const VOCABS = [
+      // 1. Văn phòng (6 từ)
       { id:'w1', topic:'office', metaLeft:'VĂN PHÒNG • CHẶNG 1', word:'meeting', pos:'Noun • Danh từ', ipa:'/ˈmiː.tɪŋ/', meaning:'Cuộc họp', imgUrl:'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', note:'hold a meeting (tổ chức họp), attend a meeting (tham dự họp).', exampleEn:'The team is holding a morning meeting to review sales charts.', exampleVi:'Nhóm đang họp buổi sáng để xem biểu đồ doanh số.', dict:{'holding':'tổ chức','morning':'buổi sáng','review':'xem lại','sales':'doanh số','charts':'biểu đồ'} },
       { id:'w2', topic:'office', metaLeft:'VĂN PHÒNG • CHẶNG 2', word:'deadline', pos:'Noun • Danh từ', ipa:'/ˈded.laɪn/', meaning:'Hạn chót hoàn thành', imgUrl:'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=900&q=80', note:'meet a deadline (đúng hạn), extend a deadline (gia hạn chót).', exampleEn:'We must submit the proposal before Friday’s deadline.', exampleVi:'Chúng ta phải nộp bản đề xuất trước hạn chót thứ Sáu.', dict:{'submit':'nộp','proposal':'đề xuất','before':'trước'} },
       { id:'w3', topic:'office', metaLeft:'VĂN PHÒNG • CHẶNG 3', word:'colleague', pos:'Noun • Danh từ', ipa:'/ˈkɒl.iːɡ/', meaning:'Đồng nghiệp', imgUrl:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80', note:'Paraphrase: colleague = coworker.', exampleEn:'I discussed the schedule changes with my colleagues.', exampleVi:'Tôi đã trao đổi thay đổi lịch trình với đồng nghiệp.', dict:{'discussed':'trao đổi','schedule':'lịch trình','changes':'thay đổi'} },
-      { id:'w4', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 1', word:'itinerary', pos:'Noun • Danh từ', ipa:'/aɪˈtɪn.ər.ər.i/', meaning:'Lịch trình chuyến đi', imgUrl:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80', note:'itinerary = travel schedule / flight plan.', exampleEn:'Please check your updated flight itinerary before heading out.', exampleVi:'Kiểm tra lịch trình bay cập nhật trước khi khởi hành.', dict:{'updated':'cập nhật','flight':'chuyến bay','before':'trước khi','heading':'đi tới'} },
-      { id:'w5', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 2', word:'departure', pos:'Noun • Danh từ', ipa:'/dɪˈpɑː.tʃər/', meaning:'Sự khởi hành, giờ xuất phát', imgUrl:'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=900&q=80', note:'departure gate (cổng khởi hành), delayed departure (khởi hành trễ).', exampleEn:'Passengers should arrive at the terminal two hours before departure.', exampleVi:'Hành khách nên tới nhà ga 2 tiếng trước giờ khởi hành.', dict:{'passengers':'hành khách','terminal':'nhà ga','hours':'giờ'} },
-      { id:'w6', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 3', word:'accommodation', pos:'Noun • Danh từ', ipa:'/əˌkɒm.əˈdeɪ.ʃən/', meaning:'Chỗ ở, phòng nghỉ khách sạn', imgUrl:'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80', note:'book accommodation = đặt phòng lưu trú.', exampleEn:'Hotel accommodation is included in the conference package.', exampleVi:'Phòng lưu trú khách sạn được bao gồm trong gói hội nghị.', dict:{'included':'bao gồm','conference':'hội nghị','package':'gói dịch vụ'} },
-      { id:'w7', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 1', word:'merchandise', pos:'Noun • Không đếm được', ipa:'/ˈmɜː.tʃən.daɪs/', meaning:'Hàng hóa bày bán', imgUrl:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80', note:'Không thêm "s" thành merchandises trong Part 5.', exampleEn:'All seasonal merchandise is displayed on the front shelves.', exampleVi:'Hàng theo mùa được bày trên kệ phía trước.', dict:{'seasonal':'theo mùa','displayed':'trưng bày','shelves':'kệ hàng'} },
-      { id:'w8', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 2', word:'receipt', pos:'Noun • Danh từ', ipa:'/rɪˈsiːt/', meaning:'Biên lai thanh toán', imgUrl:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80', note:'keep a receipt (giữ biên lai để đổi/trả hàng).', exampleEn:'Please keep your receipt if you need to exchange an item.', exampleVi:'Vui lòng giữ biên lai nếu cần đổi sản phẩm.', dict:{'keep':'giữ','exchange':'đổi hàng','item':'sản phẩm'} },
-      { id:'w9', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 3', word:'discount', pos:'Noun/Verb • Giảm giá', ipa:'/ˈdɪs.kaʊnt/', meaning:'Khoản giảm giá, chiết khấu', imgUrl:'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=900&q=80', note:'at a discount / offer a discount (giảm giá).', exampleEn:'Regular members receive a fifteen percent discount on all goods.', exampleVi:'Khách thành viên nhận mức giảm giá 15% cho mọi mặt hàng.', dict:{'members':'thành viên','receive':'nhận','percent':'phần trăm','goods':'hàng hóa'} },
-      { id:'w10', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 2', word:'complimentary', pos:'Adjective • Tính từ', ipa:'/ˌkɒm.plɪˈmen.tər.i/', meaning:'Miễn phí, tặng kèm', imgUrl:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80', note:'Paraphrase Part 7: complimentary = free.', exampleEn:'Complimentary coffee is served in the lobby.', exampleVi:'Cà phê miễn phí được phục vụ ở sảnh.', dict:{'coffee':'cà phê','served':'phục vụ','lobby':'sảnh'} },
-      { id:'w11', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 3', word:'reservation', pos:'Noun • Danh từ', ipa:'/ˌrez.əˈveɪ.ʃən/', meaning:'Sự đặt chỗ trước', imgUrl:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80', note:'make a reservation = book a table/room.', exampleEn:'We confirmed a dinner reservation for six guests.', exampleVi:'Chúng tôi đã xác nhận đặt bàn cho 6 khách.', dict:{'confirmed':'xác nhận','dinner':'bữa tối','guests':'khách'} },
-      { id:'w12', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 3', word:'refreshment', pos:'Noun • Danh từ', ipa:'/rɪˈfreʃ.mənt/', meaning:'Đồ ăn nhẹ, thức uống giải khát', imgUrl:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80', note:'light refreshments (tiệc trà/ăn nhẹ giữa giờ hội thảo).', exampleEn:'Light refreshments will be provided after the seminar.', exampleVi:'Đồ ăn nhẹ sẽ được chuẩn bị sau buổi hội thảo.', dict:{'light':'nhẹ','provided':'chuẩn bị','seminar':'hội thảo'} },
-      { id:'w13', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 2', word:'renovation', pos:'Noun • Danh từ', ipa:'/ˌren.əˈveɪ.ʃən/', meaning:'Sự cải tạo sửa chữa', imgUrl:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80', note:'under renovation = đang cải tạo sửa chữa.', exampleEn:'The hall is temporarily closed for renovation.', exampleVi:'Hội trường tạm đóng cửa để sửa chữa.', dict:{'temporarily':'tạm thời','closed':'đóng cửa'} },
-      { id:'w14', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 2', word:'malfunction', pos:'Verb/Noun • Hỏng hóc', ipa:'/ˌmælˈfʌŋk.ʃən/', meaning:'Trục trặc, hoạt động lỗi', imgUrl:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=80', note:'equipment malfunction (thiết bị trục trặc).', exampleEn:'A technician was called to fix the printer malfunction.', exampleVi:'Kỹ thuật viên được gọi tới khắc phục lỗi máy in.', dict:{'technician':'kỹ thuật viên','called':'được gọi','printer':'máy in'} },
-      { id:'w15', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 3', word:'inspection', pos:'Noun • Danh từ', ipa:'/ɪnˈspek.ʃən/', meaning:'Sự kiểm tra, thanh tra', imgUrl:'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80', note:'safety inspection (kiểm tra an toàn định kỳ).', exampleEn:'The building undergoes a monthly safety inspection.', exampleVi:'Tòa nhà trải qua đợt kiểm tra an toàn hằng tháng.', dict:{'undergoes':'trải qua','monthly':'hằng tháng','safety':'an toàn'} },
-      { id:'w16', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 2', word:'invoice', pos:'Noun • Danh từ', ipa:'/ˈɪn.vɔɪs/', meaning:'Hóa đơn thanh toán', imgUrl:'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80', note:'attach an invoice / pay an invoice.', exampleEn:'Attach the invoice when submitting your expense report.', exampleVi:'Đính kèm hóa đơn khi nộp báo cáo chi phí.', dict:{'attach':'đính kèm','submitting':'nộp','expense':'chi phí'} },
-      { id:'w17', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 3', word:'reimburse', pos:'Verb • Động từ', ipa:'/ˌriː.ɪmˈbɜːs/', meaning:'Hoàn lại tiền, bồi hoàn chi phí', imgUrl:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80', note:'reimburse travel expenses (hoàn tiền công tác phí).', exampleEn:'The company will reimburse employees for business meals.', exampleVi:'Công ty sẽ hoàn tiền bữa ăn công tác cho nhân viên.', dict:{'employees':'nhân viên','business':'công tác','meals':'bữa ăn'} },
-      { id:'w18', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 4', word:'budget', pos:'Noun • Danh từ', ipa:'/ˈbʌdʒ.ɪt/', meaning:'Ngân sách, dự toán chi tiêu', imgUrl:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', note:'within budget (trong ngân sách) / exceed the budget (vượt ngân sách).', exampleEn:'We completed the project well within the allocated budget.', exampleVi:'Chúng tôi hoàn thành dự án trong phạm vi ngân sách phân bổ.', dict:{'completed':'hoàn thành','project':'dự án','allocated':'phân bổ'} },
-      { id:'w19', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 2', word:'shipment', pos:'Noun • Danh từ', ipa:'/ˈʃɪp.mənt/', meaning:'Lô hàng, giao hàng', imgUrl:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80', note:'track a shipment / delayed shipment.', exampleEn:'The morning shipment arrived ahead of schedule.', exampleVi:'Lô hàng sáng tới sớm hơn lịch.', dict:{'arrived':'tới nơi','schedule':'lịch trình'} },
-      { id:'w20', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 3', word:'inventory', pos:'Noun • Danh từ', ipa:'/ˈɪn.vən.tər.i/', meaning:'Hàng tồn kho, kiểm kê kho', imgUrl:'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80', note:'take inventory / inventory list (kiểm kê hàng tồn).', exampleEn:'Staff are conducting an inventory check in the storage room.', exampleVi:'Nhân viên đang kiểm kê hàng tồn trong phòng kho.', dict:{'conducting':'tiến hành','check':'kiểm tra','storage':'kho lưu trữ'} },
-      { id:'w21', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 3', word:'delivery', pos:'Noun • Danh từ', ipa:'/dɪˈlɪv.ər.i/', meaning:'Sự giao hàng, phân phối', imgUrl:'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=900&q=80', note:'free delivery / delivery address (giao miễn phí / địa chỉ nhận).', exampleEn:'Standard delivery takes two to three business days.', exampleVi:'Giao hàng tiêu chuẩn mất từ 2 đến 3 ngày làm việc.', dict:{'standard':'tiêu chuẩn','takes':'mất','business':'làm việc','days':'ngày'} }
+      { id:'w4', topic:'office', metaLeft:'VĂN PHÒNG • CHẶNG 2', word:'agenda', pos:'Noun • Danh từ', ipa:'/əˈdʒen.də/', meaning:'Chương trình nghị sự, nội dung họp', imgUrl:'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&q=80', note:'on the agenda (nằm trong nội dung họp).', exampleEn:'Budget planning is the first item on today’s agenda.', exampleVi:'Lập kế hoạch ngân sách là mục đầu tiên trong chương trình họp hôm nay.', dict:{'budget':'ngân sách','planning':'lập kế hoạch','first':'đầu tiên','item':'mục'} },
+      { id:'w5', topic:'office', metaLeft:'VĂN PHÒNG • CHẶNG 3', word:'authorize', pos:'Verb • Động từ', ipa:'/ˈɔː.θər.aɪz/', meaning:'Cho phép, ủy quyền phê duyệt', imgUrl:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80', note:'authorize an expenditure (phê duyệt khoản chi).', exampleEn:'Only the regional director can authorize overtime hours.', exampleVi:'Chỉ giám đốc khu vực mới có thể phê duyệt giờ làm thêm.', dict:{'regional':'khu vực','director':'giám đốc','overtime':'làm thêm','hours':'giờ'} },
+      { id:'w6', topic:'office', metaLeft:'VĂN PHÒNG • CHẶNG 4', word:'postpone', pos:'Verb • Động từ', ipa:'/pəˈspoʊn/', meaning:'Hoãn lại, dời sang lịch khác', imgUrl:'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80', note:'Paraphrase: postpone = put off / delay.', exampleEn:'We decided to postpone the product launch until next month.', exampleVi:'Chúng tôi quyết định hoãn lễ ra mắt sản phẩm sang tháng sau.', dict:{'decided':'quyết định','product':'sản phẩm','launch':'ra mắt','until':'cho đến'} },
+
+      // 2. Du lịch & Khách sạn (6 từ)
+      { id:'w7', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 1', word:'itinerary', pos:'Noun • Danh từ', ipa:'/aɪˈtɪn.ər.ər.i/', meaning:'Lịch trình chuyến đi', imgUrl:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80', note:'itinerary = travel schedule / flight plan.', exampleEn:'Please check your updated flight itinerary before heading out.', exampleVi:'Kiểm tra lịch trình bay cập nhật trước khi khởi hành.', dict:{'updated':'cập nhật','flight':'chuyến bay','before':'trước khi','heading':'đi tới'} },
+      { id:'w8', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 2', word:'departure', pos:'Noun • Danh từ', ipa:'/dɪˈpɑː.tʃər/', meaning:'Sự khởi hành, giờ xuất phát', imgUrl:'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?auto=format&fit=crop&w=900&q=80', note:'departure gate (cổng khởi hành), delayed departure (khởi hành trễ).', exampleEn:'Passengers should arrive at the terminal two hours before departure.', exampleVi:'Hành khách nên tới nhà ga 2 tiếng trước giờ khởi hành.', dict:{'passengers':'hành khách','terminal':'nhà ga','hours':'giờ'} },
+      { id:'w9', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 3', word:'accommodation', pos:'Noun • Danh từ', ipa:'/əˌkɒm.əˈdeɪ.ʃən/', meaning:'Chỗ ở, phòng nghỉ khách sạn', imgUrl:'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80', note:'book accommodation = đặt phòng lưu trú.', exampleEn:'Hotel accommodation is included in the conference package.', exampleVi:'Phòng lưu trú khách sạn được bao gồm trong gói hội nghị.', dict:{'included':'bao gồm','conference':'hội nghị','package':'gói dịch vụ'} },
+      { id:'w10', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 2', word:'commute', pos:'Verb/Noun • Đi lại', ipa:'/kəˈmjuːt/', meaning:'Di chuyển đi làm hằng ngày', imgUrl:'https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=900&q=80', note:'daily commute (quãng đường đi làm mỗi ngày).', exampleEn:'Many staff commute by commuter train during rush hour.', exampleVi:'Nhiều nhân viên đi làm bằng tàu ngoại ô vào giờ cao điểm.', dict:{'staff':'nhân viên','train':'tàu hỏa','rush':'cao điểm','hour':'giờ'} },
+      { id:'w11', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 3', word:'luggage', pos:'Noun • Không đếm được', ipa:'/ˈlʌɡ.ɪdʒ/', meaning:'Hành lý ký gửi / xách tay', imgUrl:'https://images.unsplash.com/photo-1581553680321-4fffae59fccd?auto=format&fit=crop&w=900&q=80', note:'Paraphrase: luggage = baggage (không thêm "s").', exampleEn:'Please claim your luggage at carousel number four.', exampleVi:'Vui lòng nhận hành lý tại băng chuyền số 4.', dict:{'claim':'nhận lại','carousel':'băng chuyền','number':'số','four':'bốn'} },
+      { id:'w12', topic:'travel', metaLeft:'DU LỊCH & KHÁCH SẠN • CHẶNG 4', word:'destination', pos:'Noun • Danh từ', ipa:'/ˌdes.tɪˈneɪ.ʃən/', meaning:'Điểm đến chuyến đi', imgUrl:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80', note:'final destination (điểm đến cuối cùng).', exampleEn:'Our shuttle bus stops at every major destination in the city.', exampleVi:'Xe đưa đón dừng tại mọi điểm đến lớn trong thành phố.', dict:{'shuttle':'xe đưa đón','stops':'dừng','major':'chính','city':'thành phố'} },
+
+      // 3. Mua sắm & Cửa hàng (6 từ)
+      { id:'w13', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 1', word:'merchandise', pos:'Noun • Không đếm được', ipa:'/ˈmɜː.tʃən.daɪs/', meaning:'Hàng hóa bày bán', imgUrl:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80', note:'Không thêm "s" thành merchandises trong Part 5.', exampleEn:'All seasonal merchandise is displayed on the front shelves.', exampleVi:'Hàng theo mùa được bày trên kệ phía trước.', dict:{'seasonal':'theo mùa','displayed':'trưng bày','shelves':'kệ hàng'} },
+      { id:'w14', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 2', word:'receipt', pos:'Noun • Danh từ', ipa:'/rɪˈsiːt/', meaning:'Biên lai thanh toán', imgUrl:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=900&q=80', note:'keep a receipt (giữ biên lai để đổi/trả hàng).', exampleEn:'Please keep your receipt if you need to exchange an item.', exampleVi:'Vui lòng giữ biên lai nếu cần đổi sản phẩm.', dict:{'keep':'giữ','exchange':'đổi hàng','item':'sản phẩm'} },
+      { id:'w15', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 3', word:'discount', pos:'Noun/Verb • Giảm giá', ipa:'/ˈdɪs.kaʊnt/', meaning:'Khoản giảm giá, chiết khấu', imgUrl:'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=900&q=80', note:'at a discount / offer a discount (giảm giá).', exampleEn:'Regular members receive a fifteen percent discount on all goods.', exampleVi:'Khách thành viên nhận mức giảm giá 15% cho mọi mặt hàng.', dict:{'members':'thành viên','receive':'nhận','percent':'phần trăm','goods':'hàng hóa'} },
+      { id:'w16', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 2', word:'refund', pos:'Noun/Verb • Hoàn tiền', ipa:'/ˈriː.fʌnd/', meaning:'Sự hoàn tiền, tiền hoàn lại', imgUrl:'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=900&q=80', note:'full refund (hoàn tiền đầy đủ).', exampleEn:'Customers can request a refund within ten days of purchase.', exampleVi:'Khách có thể yêu cầu hoàn tiền trong 10 ngày kể từ lúc mua.', dict:{'request':'yêu cầu','within':'trong vòng','purchase':'mua hàng'} },
+      { id:'w17', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 3', word:'retail', pos:'Noun/Adj • Bán lẻ', ipa:'/ˈriː.teɪl/', meaning:'Ngành bán lẻ, giá bán lẻ', imgUrl:'https://images.unsplash.com/photo-1528698827591-e19ccd7bc23d?auto=format&fit=crop&w=900&q=80', note:'retail store (cửa hàng bán lẻ).', exampleEn:'The brand opened two new retail outlets downtown.', exampleVi:'Thương hiệu mở thêm hai cửa hàng bán lẻ ở trung tâm.', dict:{'brand':'thương hiệu','opened':'mở','outlets':'cửa hàng','downtown':'trung tâm'} },
+      { id:'w18', topic:'shopping', metaLeft:'MUA SẮM & CỬA HÀNG • CHẶNG 4', word:'warranty', pos:'Noun • Danh từ', ipa:'/ˈwɒr.ən.ti/', meaning:'Chế độ bảo hành sản phẩm', imgUrl:'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80', note:'one-year warranty (bảo hành một năm).', exampleEn:'Every appliance comes with a two-year manufacturer warranty.', exampleVi:'Mọi thiết bị gia dụng đều đi kèm bảo hành 2 năm từ nhà sản xuất.', dict:{'appliance':'thiết bị','comes':'đi kèm','manufacturer':'nhà sản xuất'} },
+
+      // 4. Nhà hàng & Sự kiện (6 từ)
+      { id:'w19', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 2', word:'complimentary', pos:'Adjective • Tính từ', ipa:'/ˌkɒm.plɪˈmen.tər.i/', meaning:'Miễn phí, tặng kèm', imgUrl:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80', note:'Paraphrase Part 7: complimentary = free.', exampleEn:'Complimentary coffee is served in the lobby.', exampleVi:'Cà phê miễn phí được phục vụ ở sảnh.', dict:{'coffee':'cà phê','served':'phục vụ','lobby':'sảnh'} },
+      { id:'w20', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 3', word:'reservation', pos:'Noun • Danh từ', ipa:'/ˌrez.əˈveɪ.ʃən/', meaning:'Sự đặt chỗ trước', imgUrl:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80', note:'make a reservation = book a table/room.', exampleEn:'We confirmed a dinner reservation for six guests.', exampleVi:'Chúng tôi đã xác nhận đặt bàn cho 6 khách.', dict:{'confirmed':'xác nhận','dinner':'bữa tối','guests':'khách'} },
+      { id:'w21', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 3', word:'refreshment', pos:'Noun • Danh từ', ipa:'/rɪˈfreʃ.mənt/', meaning:'Đồ ăn nhẹ, thức uống giải khát', imgUrl:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80', note:'light refreshments (tiệc trà/ăn nhẹ giữa giờ hội thảo).', exampleEn:'Light refreshments will be provided after the seminar.', exampleVi:'Đồ ăn nhẹ sẽ được chuẩn bị sau buổi hội thảo.', dict:{'light':'nhẹ','provided':'chuẩn bị','seminar':'hội thảo'} },
+      { id:'w22', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 2', word:'beverage', pos:'Noun • Danh từ', ipa:'/ˈbev.ər.ɪdʒ/', meaning:'Đồ uống, thức uống', imgUrl:'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80', note:'hot and cold beverages (đồ uống nóng và lạnh).', exampleEn:'The menu features fresh juices and specialty beverages.', exampleVi:'Thực đơn có nước ép tươi và các loại đồ uống đặc biệt.', dict:{'menu':'thực đơn','fresh':'tươi','juices':'nước ép'} },
+      { id:'w23', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 3', word:'venue', pos:'Noun • Danh từ', ipa:'/ˈven.juː/', meaning:'Địa điểm tổ chức sự kiện', imgUrl:'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=900&q=80', note:'event venue (địa điểm tổ chức sự kiện/hội thảo).', exampleEn:'The reception will be held at a waterfront venue.', exampleVi:'Buổi tiệc chiêu đãi sẽ diễn ra tại địa điểm ven sông.', dict:{'reception':'tiệc chiêu đãi','held':'tổ chức','waterfront':'ven sông'} },
+      { id:'w24', topic:'dining', metaLeft:'NHÀ HÀNG & SỰ KIỆN • CHẶNG 4', word:'catering', pos:'Noun • Dịch vụ ăn uống', ipa:'/ˈkeɪ.tər.ɪŋ/', meaning:'Dịch vụ nấu tiệc & ăn uống sự kiện', imgUrl:'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=900&q=80', note:'catering service (dịch vụ phục vụ ăn uống).', exampleEn:'We hired a local catering company for the annual gala.', exampleVi:'Chúng tôi thuê công ty dịch vụ ăn uống địa phương cho gala thường niên.', dict:{'hired':'thuê','local':'địa phương','annual':'thường niên'} },
+
+      // 5. Bảo trì & Sửa chữa (6 từ)
+      { id:'w25', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 2', word:'renovation', pos:'Noun • Danh từ', ipa:'/ˌren.əˈveɪ.ʃən/', meaning:'Sự cải tạo sửa chữa', imgUrl:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80', note:'under renovation = đang cải tạo sửa chữa.', exampleEn:'The hall is temporarily closed for renovation.', exampleVi:'Hội trường tạm đóng cửa để sửa chữa.', dict:{'temporarily':'tạm thời','closed':'đóng cửa'} },
+      { id:'w26', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 2', word:'malfunction', pos:'Verb/Noun • Hỏng hóc', ipa:'/ˌmælˈfʌŋk.ʃən/', meaning:'Trục trặc, hoạt động lỗi', imgUrl:'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=80', note:'equipment malfunction (thiết bị trục trặc).', exampleEn:'A technician was called to fix the printer malfunction.', exampleVi:'Kỹ thuật viên được gọi tới khắc phục lỗi máy in.', dict:{'technician':'kỹ thuật viên','called':'được gọi','printer':'máy in'} },
+      { id:'w27', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 3', word:'inspection', pos:'Noun • Danh từ', ipa:'/ɪnˈspek.ʃən/', meaning:'Sự kiểm tra, thanh tra', imgUrl:'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=900&q=80', note:'safety inspection (kiểm tra an toàn định kỳ).', exampleEn:'The building undergoes a monthly safety inspection.', exampleVi:'Tòa nhà trải qua đợt kiểm tra an toàn hằng tháng.', dict:{'undergoes':'trải qua','monthly':'hằng tháng','safety':'an toàn'} },
+      { id:'w28', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 2', word:'replace', pos:'Verb • Động từ', ipa:'/rɪˈpleɪs/', meaning:'Thay thế thiết bị / bộ phận', imgUrl:'https://images.unsplash.com/photo-1581092334651-ddf26d9a09d0?auto=format&fit=crop&w=900&q=80', note:'replace worn parts (thay thế linh kiện cũ mòn).', exampleEn:'Maintenance staff will replace the air filters on Monday.', exampleVi:'Nhân viên bảo trì sẽ thay bộ lọc không khí vào thứ Hai.', dict:{'maintenance':'bảo trì','staff':'nhân viên','filters':'bộ lọc'} },
+      { id:'w29', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 3', word:'hazard', pos:'Noun • Mối nguy hiểm', ipa:'/ˈhæz.əd/', meaning:'Mối nguy hại, rủi ro an toàn', imgUrl:'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=80', note:'safety hazard / fire hazard (nguy cơ mất an toàn).', exampleEn:'Wet floors can be a slip hazard if not marked clearly.', exampleVi:'Sàn ướt có thể gây nguy cơ trơn trượt nếu không đặt biển báo rõ.', dict:{'wet':'ướt','floors':'sàn nhà','slip':'trơn trượt','marked':'đánh dấu'} },
+      { id:'w30', topic:'maintenance', metaLeft:'BẢO TRÌ & SỬA CHỮA • CHẶNG 4', word:'upgrade', pos:'Verb/Noun • Nâng cấp', ipa:'/ˌʌpˈɡreɪd/', meaning:'Nâng cấp hệ thống / thiết bị', imgUrl:'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80', note:'system upgrade (nâng cấp hệ thống).', exampleEn:'The network will be offline briefly for a software upgrade.', exampleVi:'Mạng sẽ tạm ngắt kết nối ngắn để nâng cấp phần mềm.', dict:{'network':'mạng','offline':'ngắt mạng','software':'phần mềm'} },
+
+      // 6. Tài chính & Hóa đơn (6 từ)
+      { id:'w31', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 2', word:'invoice', pos:'Noun • Danh từ', ipa:'/ˈɪn.vɔɪs/', meaning:'Hóa đơn thanh toán', imgUrl:'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80', note:'attach an invoice / pay an invoice.', exampleEn:'Attach the invoice when submitting your expense report.', exampleVi:'Đính kèm hóa đơn khi nộp báo cáo chi phí.', dict:{'attach':'đính kèm','submitting':'nộp','expense':'chi phí'} },
+      { id:'w32', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 3', word:'reimburse', pos:'Verb • Động từ', ipa:'/ˌriː.ɪmˈbɜːs/', meaning:'Hoàn lại tiền, bồi hoàn chi phí', imgUrl:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=80', note:'reimburse travel expenses (hoàn tiền công tác phí).', exampleEn:'The company will reimburse employees for business meals.', exampleVi:'Công ty sẽ hoàn tiền bữa ăn công tác cho nhân viên.', dict:{'employees':'nhân viên','business':'công tác','meals':'bữa ăn'} },
+      { id:'w33', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 4', word:'budget', pos:'Noun • Danh từ', ipa:'/ˈbʌdʒ.ɪt/', meaning:'Ngân sách, dự toán chi tiêu', imgUrl:'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80', note:'within budget (trong ngân sách) / exceed the budget (vượt ngân sách).', exampleEn:'We completed the project well within the allocated budget.', exampleVi:'Chúng tôi hoàn thành dự án trong phạm vi ngân sách phân bổ.', dict:{'completed':'hoàn thành','project':'dự án','allocated':'phân bổ'} },
+      { id:'w34', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 2', word:'balance', pos:'Noun • Số dư tài khoản', ipa:'/ˈbæl.əns/', meaning:'Số dư tài khoản / khoản còn lại', imgUrl:'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=900&q=80', note:'remaining balance / account balance.', exampleEn:'Please pay the remaining balance by the end of the month.', exampleVi:'Vui lòng thanh toán số dư còn lại trước cuối tháng.', dict:{'remaining':'còn lại','end':'cuối','month':'tháng'} },
+      { id:'w35', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 3', word:'estimate', pos:'Noun/Verb • Ước tính', ipa:'/ˈes.tɪ.mət/', meaning:'Bản ước tính chi phí, dự toán', imgUrl:'https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=900&q=80', note:'cost estimate (dự toán chi phí).', exampleEn:'The contractor provided a written estimate for the repairs.', exampleVi:'Nhà thầu cung cấp bảng dự toán chi phí sửa chữa bằng văn bản.', dict:{'contractor':'nhà thầu','provided':'cung cấp','written':'bằng văn bản','repairs':'sửa chữa'} },
+      { id:'w36', topic:'finance', metaLeft:'TÀI CHÍNH & HÓA ĐƠN • CHẶNG 4', word:'transaction', pos:'Noun • Giao dịch', ipa:'/trænˈzæk.ʃən/', meaning:'Giao dịch tài chính / thanh toán', imgUrl:'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=900&q=80', note:'online transaction (giao dịch trực tuyến).', exampleEn:'You will receive a confirmation email after each transaction.', exampleVi:'Bạn sẽ nhận email xác nhận sau mỗi giao dịch.', dict:{'receive':'nhận','confirmation':'xác nhận','each':'mỗi'} },
+
+      // 7. Giao nhận & Kho vận (6 từ)
+      { id:'w37', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 2', word:'shipment', pos:'Noun • Danh từ', ipa:'/ˈʃɪp.mənt/', meaning:'Lô hàng, giao hàng', imgUrl:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=900&q=80', note:'track a shipment / delayed shipment.', exampleEn:'The morning shipment arrived ahead of schedule.', exampleVi:'Lô hàng sáng tới sớm hơn lịch.', dict:{'arrived':'tới nơi','schedule':'lịch trình'} },
+      { id:'w38', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 3', word:'inventory', pos:'Noun • Danh từ', ipa:'/ˈɪn.vən.tər.i/', meaning:'Hàng tồn kho, kiểm kê kho', imgUrl:'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=900&q=80', note:'take inventory / inventory list (kiểm kê hàng tồn).', exampleEn:'Staff are conducting an inventory check in the storage room.', exampleVi:'Nhân viên đang kiểm kê hàng tồn trong phòng kho.', dict:{'conducting':'tiến hành','check':'kiểm tra','storage':'kho lưu trữ'} },
+      { id:'w39', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 3', word:'delivery', pos:'Noun • Danh từ', ipa:'/dɪˈlɪv.ər.i/', meaning:'Sự giao hàng, phân phối', imgUrl:'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?auto=format&fit=crop&w=900&q=80', note:'free delivery / delivery address (giao miễn phí / địa chỉ nhận).', exampleEn:'Standard delivery takes two to three business days.', exampleVi:'Giao hàng tiêu chuẩn mất từ 2 đến 3 ngày làm việc.', dict:{'standard':'tiêu chuẩn','takes':'mất','business':'làm việc','days':'ngày'} },
+      { id:'w40', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 2', word:'warehouse', pos:'Noun • Nhà kho', ipa:'/ˈweə.haʊs/', meaning:'Nhà kho lưu trữ hàng hóa', imgUrl:'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&w=900&q=80', note:'warehouse facility (cơ sở nhà kho).', exampleEn:'Extra pallets were moved into the northern warehouse.', exampleVi:'Các kiện hàng phụ được chuyển vào kho phía bắc.', dict:{'pallets':'kiện kê hàng','moved':'chuyển','northern':'phía bắc'} },
+      { id:'w41', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 3', word:'supplier', pos:'Noun • Nhà cung cấp', ipa:'/səˈplaɪ.ər/', meaning:'Nhà cung cấp hàng / vật tư', imgUrl:'https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=900&q=80', note:'reliable supplier (nhà cung cấp uy tín).', exampleEn:'We switched to a new supplier for packaging materials.', exampleVi:'Chúng tôi đổi sang nhà cung cấp mới cho vật liệu đóng gói.', dict:{'switched':'chuyển đổi','packaging':'đóng gói','materials':'vật liệu'} },
+      { id:'w42', topic:'logistics', metaLeft:'GIAO NHẬN & KHO VẬN • CHẶNG 4', word:'consignment', pos:'Noun • Kiện hàng gửi', ipa:'/kənˈsaɪn.mənt/', meaning:'Chuyến hàng ký gửi / vận chuyển', imgUrl:'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=900&q=80', note:'consignment note / overdue consignment.', exampleEn:'The consignment was cleared through customs this morning.', exampleVi:'Lô hàng đã được thông quan sáng nay.', dict:{'cleared':'thông quan','customs':'hải quan','morning':'buổi sáng'} }
     ];
 
     const P1_ITEMS = [
-      { imgUrl:'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=960&q=80', opts:['(A) Several people are seated around a conference table.','(B) Workers are painting the office windows.','(C) Chairs are stacked in the corner.','(D) A man is sweeping the floor.'], ans:0, exp:'Nhiều người ngồi quanh bàn họp → (A).' },
+      { imgUrl:'https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&w=960&q=80', opts:['(A) A woman is holding a laptop in a hallway.','(B) Workers are painting the office windows.','(C) Chairs are stacked in the corner.','(D) A man is sweeping the floor.'], ans:0, exp:'Người phụ nữ đang cầm máy tính xách tay trong hành lang văn phòng → (A).' },
       { imgUrl:'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=960&q=80', opts:['(A) Boxes are arranged on storage racks.','(B) Customers are lining up at a register.','(C) A truck is being loaded outdoors.','(D) Shelves are being removed.'], ans:0, exp:'Các thùng hàng xếp trên kệ kho → (A).' },
       { imgUrl:'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=960&q=80', opts:['(A) Cookware is organized in a kitchen.','(B) Diners are eating on a patio.','(C) Someone is climbing stairs.','(D) Tables are empty.'], ans:0, exp:'Dụng cụ bếp được sắp xếp gọn gàng → (A).' },
       { imgUrl:'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=960&q=80', opts:['(A) Produce is displayed at an outdoor market.','(B) People are boarding a train.','(C) Cars are parked inside.','(D) The market is closed.'], ans:0, exp:'Nông sản bày bán ở chợ ngoài trời → (A).' },
@@ -495,9 +529,75 @@
     ];
 
     const GRAMMARS = [
-      { id:'g1', name:'Từ loại & Bẫy -ly/-al', formula:'Mạo từ/Sở hữu + [Adj] + Noun', tip:'Bẫy: timely, costly, likely là Tính từ dù có -ly; approval, proposal là Danh từ.', qs:[{ q:'The store offered a _______ discount on winter merchandise.', opts:['(A) timely','(B) time','(C) timer','(D) times'], ans:0, exp:'Cần Tính từ trước danh từ discount → (A) timely.' }] },
-      { id:'g2', name:'Thì & Mệnh đề thời gian', formula:'When / As soon as / Before + Hiện tại đơn, S + will + V0', tip:'Bẫy: Không dùng "will" sau when, as soon as, before, until.', qs:[{ q:'We will board as soon as the gate agent _______ us.', opts:['(A) will call','(B) calls','(C) called','(D) calling'], ans:1, exp:'Sau as soon as chia Hiện tại đơn → (B) calls.' }] },
-      { id:'g3', name:'Giới từ On / In / At', formula:'AT (giờ) • ON (thứ/ngày + buổi) • IN (tháng/năm)', tip:'Bẫy: Có thứ/ngày lẫn buổi thì dùng ON (on Friday morning).', qs:[{ q:'Complimentary coffee is served _______ Friday morning.', opts:['(A) in','(B) on','(C) at','(D) to'], ans:1, exp:'Friday morning → dùng ON (B).' }] }
+      {
+        id:'g1',
+        name:'1. Từ loại & Mẹo nhìn 3 giây',
+        plainExplain:'Trong đề TOEIC Part 5, nếu thấy 4 đáp án có cùng gốc từ (ví dụ: <em>approve, approval, approved, approving</em>), bạn <strong>KHÔNG cần dịch cả câu</strong>. Chỉ cần nhìn từ đứng ngay trước và ngay sau chỗ trống để xác định xem chỗ đó thiếu Danh từ, Động từ, Tính từ hay Trạng từ.',
+        formula:'a / an / the / my / their + [TÍNH TỪ] + Danh từ   |   Động từ + [TRẠNG TỪ]',
+        examples:[
+          {
+            en:'The store provided a <span class="underline font-bold text-[#5542e6]">timely</span> delivery of all merchandise.',
+            vi:'Cửa hàng đã giao toàn bộ hàng hóa một cách kịp thời.',
+            analysis:'Trước chỗ trống có mạo từ <strong>"a"</strong>, sau chỗ trống là danh từ <strong>"delivery"</strong> → giữa mạo từ và danh từ chắc chắn phải là <strong>Tính từ</strong> (<em>timely</em>).'
+          },
+          {
+            en:'The manager reviewed the renovation <span class="underline font-bold text-[#5542e6]">proposal</span> carefully.',
+            vi:'Người quản lý đã xem xét bản đề xuất cải tạo một cách cẩn thận.',
+            analysis:'Sau cụm <strong>"the renovation"</strong> cần một <strong>Danh từ</strong> làm tân ngữ cho động từ <em>reviewed</em> → chọn <em>proposal</em> (bản đề xuất).'
+          }
+        ],
+        tip:'🚨 Bẫy hay lừa nhất: Đừng thấy đuôi <strong>-ly</strong> là chọn Trạng từ! Các từ <em>timely (kịp thời), costly (đắt đỏ), friendly (thân thiện), likely (có khả năng)</em> là <strong>TÍNH TỪ</strong>. Còn <em>approval, proposal, renewal, arrival</em> đuôi <strong>-al</strong> là <strong>DANH TỪ</strong>.',
+        qs:[
+          { q:'The store offered a _______ discount on winter merchandise.', opts:['(A) timely','(B) time','(C) timer','(D) times'], ans:0, exp:'Giữa mạo từ "a" và danh từ "discount" cần một Tính từ → chọn (A) timely (kịp thời).' },
+          { q:'All renovation _______ must receive written approval from the director.', opts:['(A) propose','(B) proposals','(C) proposed','(D) proposing'], ans:1, exp:'Sau "All renovation" cần Danh từ số nhiều làm chủ ngữ → chọn (B) proposals (các bản đề xuất).' }
+        ]
+      },
+      {
+        id:'g2',
+        name:'2. Thì động từ & Mệnh đề thời gian',
+        plainExplain:'Để chia đúng thì trong TOEIC, bạn chỉ cần tìm <strong>trạng từ chỉ thời gian</strong> trong câu: có <em>yesterday, ago, last week</em> → chia Quá khứ đơn (V2/ed); có <em>tomorrow, next month</em> → chia Tương lai đơn (will + V0); chỉ thói quen/lịch trình → chia Hiện tại đơn.',
+        formula:'When / As soon as / Before / After / Until + [Hiện tại đơn], S + will + V0',
+        examples:[
+          {
+            en:'Passengers will board the plane as soon as the agent <span class="underline font-bold text-[#5542e6]">makes</span> the announcement.',
+            vi:'Hành khách sẽ lên máy bay ngay khi nhân viên cổng phát thông báo.',
+            analysis:'Vế đầu có <em>will board</em> (tương lai), nhưng vế sau đứng ngay sau liên từ thời gian <strong>"as soon as"</strong> nên <strong>cấm dùng will</strong> mà phải lùi về Hiện tại đơn số ít → <em>makes</em>.'
+          },
+          {
+            en:'Our accounting office <span class="underline font-bold text-[#5542e6]">sent</span> the final invoice yesterday afternoon.',
+            vi:'Phòng kế toán của chúng tôi đã gửi hóa đơn cuối cùng vào chiều hôm qua.',
+            analysis:'Cuối câu có mốc thời gian quá khứ rõ ràng <strong>"yesterday afternoon"</strong> → chia Quá khứ đơn → <em>sent</em>.'
+          }
+        ],
+        tip:'🚨 Bẫy kinh điển: Trong mệnh đề bắt đầu bằng <em>when, as soon as, once, before, until</em>, tuyệt đối KHÔNG bao giờ chọn đáp án có chữ <strong>will</strong>!',
+        qs:[
+          { q:'We will board as soon as the gate agent _______ us.', opts:['(A) will call','(B) calls','(C) called','(D) calling'], ans:1, exp:'Sau "as soon as" không dùng "will call", lùi về Hiện tại đơn số ít → (B) calls.' },
+          { q:'The supplier _______ the replacement parts to our warehouse yesterday.', opts:['(A) ships','(B) will ship','(C) shipped','(D) shipping'], ans:2, exp:'Có "yesterday" (hôm qua) → chia Quá khứ đơn → (C) shipped.' }
+        ]
+      },
+      {
+        id:'g3',
+        name:'3. Giới từ In / On / At chỉ thời gian',
+        plainExplain:'Hãy nhớ quy tắc tháp thời gian từ nhỏ đến lớn: <strong>AT</strong> đi với giờ cụ thể (nhỏ nhất) → <strong>ON</strong> đi với ngày và thứ (vừa) → <strong>IN</strong> đi với tháng, mùa, năm (lớn nhất).',
+        formula:'AT + giờ (8:30 AM)  •  ON + thứ/ngày (Monday, May 5)  •  IN + tháng/năm (in July, in 2026)',
+        examples:[
+          {
+            en:'Complimentary coffee is served <span class="underline font-bold text-[#5542e6]">on</span> Friday morning in the lobby.',
+            vi:'Cà phê miễn phí được phục vụ vào sáng thứ Sáu ở sảnh.',
+            analysis:'Bình thường "in the morning" dùng <em>in</em>, nhưng khi ghép thêm thứ <strong>"Friday"</strong> vào trước thì phải tính theo NGÀY nên dùng <strong>on</strong>.'
+          },
+          {
+            en:'The morning shipment is scheduled to arrive <span class="underline font-bold text-[#5542e6]">at</span> 9:15 A.M.',
+            vi:'Lô hàng buổi sáng dự kiến sẽ tới lúc 9:15 sáng.',
+            analysis:'Trước giờ cụ thể <strong>"9:15 A.M."</strong> luôn dùng giới từ <strong>at</strong>.'
+          }
+        ],
+        tip:'🚨 Bẫy hay gặp: Có cả thứ/ngày lẫn buổi (<em>on Sunday morning, on May 10 afternoon</em>) → luôn chọn <strong>ON</strong>. Trước <em>next / last / every / this</em> thì không điền giới từ nào cả.',
+        qs:[
+          { q:'Complimentary coffee is served _______ Friday morning.', opts:['(A) in','(B) on','(C) at','(D) to'], ans:1, exp:'Có thứ "Friday" đi kèm buổi "morning" → ưu tiên tính theo ngày, dùng (B) on.' },
+          { q:'The safety inspection will begin _______ 10:00 A.M. sharp.', opts:['(A) in','(B) on','(C) at','(D) by'], ans:2, exp:'Trước giờ cụ thể 10:00 A.M. → dùng (C) at.' }
+        ]
+      }
     ];
 
     const P2_ITEMS = [
@@ -511,9 +611,22 @@
       { type:'📦 Giao nhận', title:'Delivery & Invoice Policy', text:'Keep your original invoice for any merchandise return within 14 days. Standard delivery takes two business days.', vi:'Giữ hóa đơn gốc để đổi trả hàng trong 14 ngày. Giao hàng tiêu chuẩn mất 2 ngày làm việc.', dict:{'original':'gốc','return':'đổi trả','standard':'tiêu chuẩn'}, qs:[{ q:'Return window?', opts:['(A) 14 days','(B) 5 days','(C) 30 days','(D) 60 days'], ans:0, exp:'within 14 days → (A).' }] }
     ];
 
-    // ==================== AUDIO (LOCAL VOICE + SPEED 0.5 / 0.75 / 1 / 1.25) ====================
+    // ==================== ROBUST AUDIO ENGINE (LOCAL VOICE + SPEED 0.5 / 0.75 / 1 / 1.25) ====================
     const audioPrefMap = { 'v-audio-ctrl': { voice:'female', rate:1 }, 'l-audio-ctrl': { voice:'female', rate:1 }, 'r-audio-ctrl': { voice:'female', rate:1 }, 't-audio-ctrl': { voice:'female', rate:1 } };
     let soundOn = true;
+    let cachedVoices = [];
+    let currentUtterance = null;
+
+    function refreshVoices() {
+      if ('speechSynthesis' in window) {
+        cachedVoices = window.speechSynthesis.getVoices() || [];
+      }
+    }
+    if ('speechSynthesis' in window) {
+      refreshVoices();
+      window.speechSynthesis.onvoiceschanged = refreshVoices;
+    }
+
     function beep(ok) { if (!soundOn) return; try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); const o = ctx.createOscillator(); const g = ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.setValueAtTime(ok?660:200, ctx.currentTime); if(ok) o.frequency.setValueAtTime(880, ctx.currentTime+0.1); g.gain.setValueAtTime(0.14, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.28); o.start(); o.stop(ctx.currentTime+0.3); } catch(e){} }
     function toggleSound() { soundOn = !soundOn; document.getElementById('sound-toggle').textContent = soundOn ? '🔊' : '🔇'; }
     function renderCtrl(id) {
@@ -528,17 +641,57 @@
     }
     function setVoice(id, v) { audioPrefMap[id] = { ...(audioPrefMap[id]||{rate:1}), voice: v }; renderCtrl(id); }
     function setRate(id, r) { audioPrefMap[id] = { ...(audioPrefMap[id]||{voice:'female'}), rate: r }; renderCtrl(id); }
-    function speakLocal(id, txt) {
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      const p = audioPrefMap[id] || { voice:'female', rate:1 };
-      const u = new SpeechSynthesisUtterance(txt); u.lang = 'en-US'; u.rate = p.rate;
-      const list = window.speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
-      if (list.length) {
-        const m = p.voice==='male' ? list.find(v=>/male|david|mark|daniel|alex/i.test(v.name)) : list.find(v=>/female|zira|samantha|victoria|karen/i.test(v.name));
-        if (m) u.voice = m; else u.pitch = p.voice==='male' ? 0.85 : 1.12;
+
+    function speakLocal(id, txt, statusElId) {
+      const statusEl = statusElId ? document.getElementById(statusElId) : null;
+      if (!('speechSynthesis' in window)) {
+        if (statusEl) statusEl.textContent = 'Trình duyệt không hỗ trợ đọc tự động — bấm xem lời thoại bên dưới.';
+        return;
       }
-      window.speechSynthesis.speak(u);
+      try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
+      } catch (e) {}
+
+      refreshVoices();
+      const p = audioPrefMap[id] || { voice:'female', rate:1 };
+      const cleanTxt = String(txt || '').replace(/\s+/g, ' ').trim();
+      if (!cleanTxt) return;
+
+      const u = new SpeechSynthesisUtterance(cleanTxt);
+      currentUtterance = u;
+      u.lang = 'en-US';
+      u.rate = p.rate;
+      u.volume = 1.0;
+
+      const enVoices = cachedVoices.filter(v => (v.lang || '').toLowerCase().startsWith('en'));
+      const localEn = enVoices.filter(v => v.localService);
+      const pool = localEn.length ? localEn : enVoices;
+
+      if (pool.length) {
+        if (p.voice === 'male') {
+          const mv = pool.find(v => /male|david|mark|daniel|alex|james|guy|christopher|ryan/i.test(v.name));
+          if (mv) { u.voice = mv; u.pitch = 0.96; }
+          else { u.voice = pool[0]; u.pitch = 0.78; }
+        } else {
+          const fv = pool.find(v => /female|zira|samantha|victoria|karen|aria|jenny|natasha|susan|hazel/i.test(v.name));
+          if (fv) { u.voice = fv; u.pitch = 1.05; }
+          else { u.voice = pool[0]; u.pitch = 1.15; }
+        }
+      } else {
+        u.pitch = p.voice === 'male' ? 0.8 : 1.15;
+      }
+
+      if (statusEl) statusEl.textContent = `🔊 Đang phát (${p.voice === 'male' ? 'Giọng Nam' : 'Giọng Nữ'} • ${p.rate}x)...`;
+      u.onend = () => { if (statusEl) statusEl.textContent = '✅ Đã phát xong — bấm ▶ để nghe lại'; };
+      u.onerror = () => { if (statusEl) statusEl.textContent = '⚠️ Thiết bị đang tắt tiếng hoặc chưa cài gói giọng tiếng Anh (bấm Xem lời thoại bên dưới để đối chiếu).'; };
+
+      setTimeout(() => {
+        try {
+          window.speechSynthesis.resume();
+          window.speechSynthesis.speak(u);
+        } catch (err) {}
+      }, 60);
     }
 
     // ==================== STATE ====================
@@ -689,10 +842,52 @@
     }
 
     function renderGrammar() {
-      document.getElementById('gram-tabs').innerHTML = GRAMMARS.map((g,i)=>`<button onclick="gIdx=${i};renderGrammar()" class="px-3 py-1.5 rounded-xl text-xs font-bold border ${i===gIdx?'bg-[#7463f8] text-white border-[#7463f8]':'bg-white text-slate-700 border-[#e6e3f3]'}">${g.name}</button>`).join('');
+      document.getElementById('gram-tabs').innerHTML = GRAMMARS.map((g,i)=>`<button onclick="gIdx=${i};renderGrammar()" class="px-3.5 py-2 rounded-xl text-xs font-bold border ${i===gIdx?'bg-[#7463f8] text-white border-[#7463f8]':'bg-white text-slate-700 border-[#e6e3f3]'}">${g.name}</button>`).join('');
       const g = GRAMMARS[gIdx];
-      document.getElementById('gram-lesson').innerHTML = `<div class="font-bold text-slate-800">${g.name} • <span class="text-[#5542e6]">${g.formula}</span></div><div class="text-xs text-[#8c2d4c]">${g.tip}</div>`;
-      document.getElementById('gram-quiz').innerHTML = g.qs.map((q,qi)=>`<div class="p-3.5 rounded-2xl bg-white border border-[#e7e4f4] space-y-2"><p class="text-xs sm:text-sm font-bold text-slate-800">${qi+1}. ${q.q}</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">${q.opts.map((o,oi)=>`<button id="gq-${qi}-${oi}" onclick="ansGram(${qi},${oi})" class="p-2 rounded-xl bg-[#f8f7fc] hover:bg-[#ece8fa] border border-[#e5e2f3] text-left text-xs font-bold">${o}</button>`).join('')}</div><div id="gexp-${qi}" class="hidden p-2.5 rounded-xl text-xs"></div></div>`).join('');
+      document.getElementById('gram-lesson').innerHTML = `
+        <div class="space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h3 class="text-base sm:text-lg font-bold text-slate-800">📖 Bài giảng: ${g.name}</h3>
+            <span class="px-2.5 py-1 rounded-full bg-[#ece8fa] text-[#5542e6] text-[11px] font-bold">Bước 1: Đọc hiểu & Xem ví dụ</span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${g.plainExplain}</p>
+
+          <div class="p-3 rounded-xl bg-white border border-[#dcd5f5] text-xs sm:text-sm font-bold text-[#5542e6]">
+            📐 Công thức nhớ nhanh: ${g.formula}
+          </div>
+
+          <div class="space-y-2">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-500">✨ Ví dụ thực tế & Cách phân tích:</div>
+            ${g.examples.map((ex, idx) => `
+              <div class="p-3.5 rounded-2xl bg-white border border-[#e7e4f4] space-y-1 text-xs">
+                <div class="font-bold text-slate-800 text-sm">Ví dụ ${idx + 1}: ${ex.en}</div>
+                <div class="text-slate-500 italic">→ Dịch: ${ex.vi}</div>
+                <div class="text-[#1f6346] bg-[#f3f9f5] px-2.5 py-1.5 rounded-lg mt-1">💡 <strong>Cách làm:</strong> ${ex.analysis}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="p-3 rounded-xl bg-[#fdebf0] border border-[#f7cad9] text-xs text-[#8c2d4c] leading-relaxed">
+            ${g.tip}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('gram-quiz').innerHTML = `
+        <div class="pt-2 flex items-center justify-between">
+          <h4 class="text-sm font-bold text-slate-800">✍️ Bước 2: Bài tập áp dụng ngay (Áp dụng công thức vừa học)</h4>
+        </div>
+        ${g.qs.map((q,qi)=>`
+          <div class="p-4 rounded-2xl bg-white border border-[#e7e4f4] space-y-2.5">
+            <p class="text-xs sm:text-sm font-bold text-slate-800">Câu ${qi+1}: ${q.q}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+              ${q.opts.map((o,oi)=>`<button id="gq-${qi}-${oi}" onclick="ansGram(${qi},${oi})" class="p-2.5 rounded-xl bg-[#f8f7fc] hover:bg-[#ece8fa] border border-[#e5e2f3] text-left text-xs font-bold">${o}</button>`).join('')}
+            </div>
+            <div id="gexp-${qi}" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+          </div>
+        `).join('')}
+      `;
     }
 
     function ansGram(qi,oi) {
@@ -709,6 +904,18 @@
 
     function buildWave() { return [35,65,90,50,80,100,45,70,85,40,60,95,55,75,40,65,85,50,35,60,80,45,70,55,35].map((h,i)=>`<span style="height:${h}%" class="w-1 rounded-full ${i<11?'bg-[#7463f8]':'bg-[#d8d4eb]'} inline-block"></span>`).join(''); }
 
+    function playCurrentP1() {
+      const it = P1_ITEMS[p1Idx];
+      const script = it.opts.map(o => o.replace(/^\(([A-D])\)\s*/, 'Option $1. ')).join(' ... ');
+      speakLocal('l-audio-ctrl', script, 'p1-audio-status');
+    }
+
+    function playCurrentP2() {
+      const it = P2_ITEMS[p2Idx];
+      const script = `Question: ${it.q} ... ` + it.opts.map(o => o.replace(/^\(([A-C])\)\s*/, 'Option $1. ')).join(' ... ');
+      speakLocal('l-audio-ctrl', script, 'p2-audio-status');
+    }
+
     function renderListen() {
       const box = document.getElementById('listen-body');
       if (lMode === 'p1') {
@@ -716,22 +923,36 @@
         box.innerHTML = `<div class="max-w-3xl mx-auto soft-card rounded-3xl p-5 sm:p-6 space-y-4">
           <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-600"><span>PART 1 • PHOTOGRAPHS</span><span>Câu ${p1Idx+1}/${P1_ITEMS.length}</span></div>
           <div class="rounded-2xl overflow-hidden bg-slate-100 border border-[#e7e4f4] aspect-[16/10]"><img src="${it.imgUrl}" alt="Part 1" class="w-full h-full object-cover toeic-photo-bw" /></div>
-          <div class="p-3 rounded-2xl bg-[#f8f7fc] border border-[#e7e4f4] flex flex-wrap items-center justify-between gap-2">
-            <button onclick="speakLocal('l-audio-ctrl', it.opts.join(' ... '))" class="w-9 h-9 rounded-full bg-[#7463f8] hover:bg-[#6250eb] text-white text-xs font-bold">▶</button>
-            <div class="h-7 flex items-center gap-1 flex-1 justify-center min-w-[120px]">${buildWave()}</div>
-            <div id="l-audio-ctrl"></div>
+          <div class="p-3 rounded-2xl bg-[#f8f7fc] border border-[#e7e4f4] space-y-1.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <button onclick="playCurrentP1()" class="px-3.5 py-2 rounded-full bg-[#7463f8] hover:bg-[#6250eb] text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs">▶ Nghe băng</button>
+              <div class="h-7 flex items-center gap-1 flex-1 justify-center min-w-[100px]">${buildWave()}</div>
+              <div id="l-audio-ctrl"></div>
+            </div>
+            <div id="p1-audio-status" class="text-[11px] font-semibold text-slate-500 text-center">Bấm ▶ Nghe băng để nghe 4 phương án A, B, C, D</div>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">${['A.','B.','C.','D.'].map((lbl,i)=>`<button id="p1b-${i}" onclick="chkP1(${i})" class="p-3 rounded-xl bg-white hover:bg-[#f8f7fc] border border-[#e6e3f3] text-left text-xs font-bold text-slate-700">${lbl} <span class="font-normal text-slate-400">(Nghe rồi chọn)</span></button>`).join('')}</div>
           <div id="p1fb" class="hidden p-3 rounded-xl text-xs"></div>
+          <details class="rounded-xl bg-[#f8f7fc] border border-[#e7e4f4] p-2.5 text-xs text-slate-600">
+            <summary class="font-bold text-slate-700 cursor-pointer">👀 Xem lời thoại 4 câu đọc (dùng khi kiểm tra lại)</summary>
+            <div class="mt-2 space-y-1">${it.opts.map(o => `<div>${o}</div>`).join('')}</div>
+          </details>
           <div class="flex justify-between"><button onclick="p1Idx=(p1Idx-1+P1_ITEMS.length)%P1_ITEMS.length;renderListen()" class="px-3.5 py-2 rounded-xl bg-[#f3f2f9] text-xs font-bold">← Trước</button><button onclick="p1Idx=(p1Idx+1)%P1_ITEMS.length;renderListen()" class="px-3.5 py-2 rounded-xl bg-[#ece8fa] text-[#5542e6] text-xs font-bold">Tiếp →</button></div>
         </div>`;
         renderCtrl('l-audio-ctrl');
       } else if (lMode === 'p2') {
         const it = P2_ITEMS[p2Idx];
         box.innerHTML = `<div class="max-w-2xl mx-auto soft-card rounded-3xl p-5 space-y-3">
-          <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-2xl bg-[#f8f7fc] border border-[#e7e4f4]"><span class="text-xs font-bold">Part 2 • ${p2Idx+1}/${P2_ITEMS.length}</span><div class="flex items-center gap-1.5 flex-wrap"><div id="l-audio-ctrl"></div><button onclick="speakLocal('l-audio-ctrl','${it.q} ... ${it.opts.join(' ... ')}')" class="px-3 py-1 rounded-xl bg-[#ece8fa] text-[#5542e6] text-xs font-bold">🔊 Nghe</button></div></div>
+          <div class="p-3 rounded-2xl bg-[#f8f7fc] border border-[#e7e4f4] space-y-1.5">
+            <div class="flex flex-wrap items-center justify-between gap-2"><span class="text-xs font-bold">Part 2 • ${p2Idx+1}/${P2_ITEMS.length}</span><div class="flex items-center gap-1.5 flex-wrap"><div id="l-audio-ctrl"></div><button onclick="playCurrentP2()" class="px-3 py-1.5 rounded-xl bg-[#7463f8] text-white text-xs font-bold">🔊 Nghe câu hỏi</button></div></div>
+            <div id="p2-audio-status" class="text-[11px] font-semibold text-slate-500">Bấm 🔊 Nghe câu hỏi để nghe</div>
+          </div>
           ${['(A)','(B)','(C)'].map((lbl,i)=>`<button id="p2b-${i}" onclick="chkP2(${i})" class="w-full p-3 rounded-xl bg-white border border-[#e6e3f3] text-left text-xs font-bold">Đáp án ${lbl}</button>`).join('')}
           <div id="p2fb" class="hidden p-3 rounded-xl text-xs"></div>
+          <details class="rounded-xl bg-[#f8f7fc] border border-[#e7e4f4] p-2.5 text-xs text-slate-600">
+            <summary class="font-bold text-slate-700 cursor-pointer">👀 Xem lời thoại câu hỏi & đáp án</summary>
+            <div class="mt-2 space-y-1"><strong>Q: ${it.q}</strong>${it.opts.map(o => `<div>${o}</div>`).join('')}</div>
+          </details>
           <button onclick="p2Idx=(p2Idx+1)%P2_ITEMS.length;renderListen()" class="px-3.5 py-2 rounded-xl bg-[#f3f2f9] text-xs font-bold">Tiếp →</button>
         </div>`;
         renderCtrl('l-audio-ctrl');
